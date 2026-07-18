@@ -62,15 +62,11 @@ export default function Hero() {
           <div className="relative hidden lg:block">
             <div className="relative w-full h-96 rounded-3xl overflow-hidden shadow-2xl">
               <div className="absolute inset-0 bg-linear-to-tr from-teal-400 to-coral-400 opacity-20"></div>
-              <div className="w-full h-full bg-slate-200 rounded-3xl flex items-center justify-center">
-                <svg
-                  className="w-32 h-32 text-teal-700"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.9c-3.91-.5-7-3.78-7-7.9 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.9zm6.79-1.79c.13-.58.21-1.17.21-1.79 0-4.12-3.09-7.4-7-7.9v1.9c0 .55.45 1 1 1h4.59l5-5H17V5h4c1.1 0 2 .9 2 2v4h-2V7.59l-5 5z" />
-                </svg>
-              </div>
+              <img 
+                src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&q=80&w=1200" 
+                alt="Happy dog looking out" 
+                className="w-full h-full object-cover rounded-3xl"
+              />
             </div>
           </div>
         </div>

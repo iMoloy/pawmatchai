@@ -6,14 +6,22 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & About */}
-          <div className="md:col-span-1 lg:col-span-2">
+          <div className="md:col-span-1 lg:col-span-2 pr-4">
             <Link href="/" className="flex items-center gap-2 text-2xl font-black text-white mb-4 tracking-tight">
-              <img src="/logo.png" alt="PawMatchAI Logo" className="w-8 h-8 object-contain brightness-0 invert" />
-              <span>PawMatch<span className="text-teal-300">AI</span></span>
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-sm">
+                <img src="/logo.png" alt="PawMatchAI Logo" className="w-full h-full object-contain" />
+              </div>
+              <span>PawMatch<span className="text-teal-400">AI</span></span>
             </Link>
-            <p className="text-slate-300 text-sm">
+            <p className="text-slate-400 text-sm mb-6 max-w-sm leading-relaxed">
               Connecting loving families with their perfect pets through intelligent AI matching technology.
             </p>
+            <form className="flex gap-2 max-w-sm">
+              <input type="email" placeholder="Subscribe to newsletter" className="bg-slate-800 border border-slate-700 text-sm text-white px-4 py-2.5 rounded-xl flex-1 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder:text-slate-500" />
+              <button type="submit" className="bg-teal-600 hover:bg-teal-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors">
+                Subscribe
+              </button>
+            </form>
           </div>
 
           {/* Quick Links */}

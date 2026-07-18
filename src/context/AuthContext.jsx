@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -59,6 +61,21 @@ export function AuthProvider({ children }) {
     return { success: false, message: "Please fill all required fields" };
   };
 
+  const loginWithGoogle = async (accessToken) => {
+    try {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/google`, { accessToken });
+      if (res.data.success) {
+        setUser(res.data.user);
+        localStorage.setItem("pawmatch_user", JSON.stringify(res.data.user));
+        return { success: true };
+      }
+      return { success: false, message: res.data.message };
+    } catch (error) {
+      console.error("Google login failed", error);
+      return { success: false, message: error.response?.data?.message || "Google login failed. Please try again." };
+    }
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem("pawmatch_user");
@@ -66,9 +83,11 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+      <AuthContext.Provider value={{ user, isLoading, login, register, loginWithGoogle, logout }}>
+        {children}
+      </AuthContext.Provider>
+    </GoogleOAuthProvider>
   );
 }
 
