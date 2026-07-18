@@ -11,6 +11,9 @@ export interface Pet {
   sex: "Male" | "Female";
   description: string;
   vaccinated: boolean;
+  neutered: boolean;
+  goodWithKids: boolean;
+  goodWithPets: boolean;
   temperament: string[];
   weight: string;
   images?: string[];
@@ -30,6 +33,9 @@ export const placeholderPets: Pet[] = [
     sex: "Male",
     description: "Buddy is a cheerful, outgoing Golden Retriever who loves long walks, playing fetch, and cuddling on the couch. He is great with kids and other dogs.",
     vaccinated: true,
+    neutered: true,
+    goodWithKids: true,
+    goodWithPets: true,
     temperament: ["Friendly", "Energetic", "Gentle", "Playful"],
     weight: "70 lbs",
     images: [
@@ -51,6 +57,9 @@ export const placeholderPets: Pet[] = [
     sex: "Female",
     description: "Luna is an elegant and talkative Siamese cat. She is incredibly affectionate, loves climbing high bookshelves, and will follow you around the house demanding chin scratches.",
     vaccinated: true,
+    neutered: true,
+    goodWithKids: true,
+    goodWithPets: false,
     temperament: ["Affectionate", "Curious", "Vocal", "Intelligent"],
     weight: "8 lbs",
     images: [
@@ -71,6 +80,9 @@ export const placeholderPets: Pet[] = [
     sex: "Male",
     description: "Max is a smart, loyal Labrador Mix. He has completed basic training, is house-broken, and is eager to find an active family who can take him hiking and camping.",
     vaccinated: true,
+    neutered: true,
+    goodWithKids: true,
+    goodWithPets: true,
     temperament: ["Loyal", "Smart", "Active", "Protective"],
     weight: "65 lbs",
     images: [
@@ -90,6 +102,9 @@ export const placeholderPets: Pet[] = [
     sex: "Male",
     description: "Milo is a fluffy, gentle giant in the making. He's very laid back, gets along beautifully with dogs, and has a sweet chirp instead of a meow.",
     vaccinated: false,
+    neutered: false,
+    goodWithKids: true,
+    goodWithPets: true,
     temperament: ["Gentle", "Quiet", "Friendly", "Independent"],
     weight: "12 lbs",
     images: [
@@ -109,6 +124,9 @@ export const placeholderPets: Pet[] = [
     sex: "Female",
     description: "Bella is a compact, loveable clown of a dog. She prefers short walks and long naps. Perfect for apartment living and loves nothing more than being pampered.",
     vaccinated: true,
+    neutered: true,
+    goodWithKids: false,
+    goodWithPets: true,
     temperament: ["Playful", "Affectionate", "Easygoing", "Quiet"],
     weight: "22 lbs",
     images: [
@@ -128,6 +146,9 @@ export const placeholderPets: Pet[] = [
     sex: "Male",
     description: "Oliver has the stunning wild look of a Bengal paired with a highly intelligent, inquisitive nature. He needs lots of interactive playtime and mental stimulation.",
     vaccinated: true,
+    neutered: true,
+    goodWithKids: false,
+    goodWithPets: false,
     temperament: ["Active", "Intelligent", "Playful", "Bold"],
     weight: "11 lbs",
     images: [
@@ -147,6 +168,9 @@ export const placeholderPets: Pet[] = [
     sex: "Male",
     description: "Charlie is a high-energy, work-oriented Border Collie. He excels at agility training, frisbee, and would love a home with a big yard or a farm where he can be busy.",
     vaccinated: true,
+    neutered: true,
+    goodWithKids: true,
+    goodWithPets: true,
     temperament: ["Energetic", "Hyper-intelligent", "Loyal", "Eager to Please"],
     weight: "45 lbs",
     images: [
@@ -166,6 +190,9 @@ export const placeholderPets: Pet[] = [
     sex: "Male",
     description: "Simba is a sweet-tempered Persian cat with a lush, luxurious coat. He enjoys peaceful environments, soft music, and being brushed daily to keep him looking his best.",
     vaccinated: true,
+    neutered: true,
+    goodWithKids: true,
+    goodWithPets: true,
     temperament: ["Calm", "Sweet", "Gentle", "Reserved"],
     weight: "9 lbs",
     images: [
