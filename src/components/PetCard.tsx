@@ -1,7 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
+import { Pet } from "@/data/pets";
 
-export default function PetCard({ pet }) {
+interface PetCardProps {
+  pet: Pet;
+}
+
+export const PetCard: React.FC<PetCardProps> = ({ pet }) => {
   return (
     <div className="group bg-white rounded-2xl overflow-hidden border border-slate-200/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col h-full">
       {/* Image with zoom on hover */}
@@ -31,7 +36,7 @@ export default function PetCard({ pet }) {
           </div>
         )}
         
-        {/* Badge (e.g. Sex or Badge) */}
+        {/* Badge (e.g. Sex or Vaccination) */}
         <div className="absolute top-3 right-3 flex gap-1">
           {pet.sex && (
             <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full shadow-sm ${
@@ -53,7 +58,7 @@ export default function PetCard({ pet }) {
         <div>
           {/* Breed / Species Tag */}
           <div className="text-xs font-semibold text-teal-600 tracking-wider uppercase mb-1">
-            {pet.breed} {pet.species ? `• ${pet.species}` : ''}
+            {pet.breed} • {pet.species}
           </div>
           
           {/* Name */}
@@ -67,7 +72,7 @@ export default function PetCard({ pet }) {
               <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              {typeof pet.age === 'number' ? `${pet.age} ${pet.age === 1 ? 'year' : 'years'}` : pet.age}
+              {pet.age}
             </span>
             <span>•</span>
             <span className="flex items-center gap-1 truncate">
@@ -84,11 +89,11 @@ export default function PetCard({ pet }) {
         <div className="flex items-center justify-between pt-4 border-t border-slate-100 mt-auto">
           <div>
             <p className="text-xs text-slate-400 uppercase font-medium">Adoption Fee</p>
-            <p className="text-lg font-bold text-teal-800">${pet.fee || '100'}</p>
+            <p className="text-lg font-bold text-teal-800">${pet.fee}</p>
           </div>
           <Link
             href={`/explore/${pet.id}`}
-            className="px-4 py-2.5 bg-teal-700 text-white font-semibold text-sm rounded-xl hover:bg-teal-850 hover:shadow-md transition-all duration-200"
+            className="px-4 py-2.5 bg-teal-700 text-white font-semibold text-sm rounded-xl hover:bg-teal-800 hover:shadow-md transition-all duration-200"
           >
             View Details
           </Link>
@@ -96,4 +101,6 @@ export default function PetCard({ pet }) {
       </div>
     </div>
   );
-}
+};
+
+export default PetCard;
