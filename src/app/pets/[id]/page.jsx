@@ -7,10 +7,12 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PetCard from "@/components/PetCard";
+import { useChat } from "@/context/ChatContext";
 
 export default function PetDetailsPage({ params }) {
   const resolvedParams = use(params);
   const petId = resolvedParams.id;
+  const { startChatWithPet } = useChat();
 
   // 1. Fetch current pet details by ID
   const { data: petData, isLoading: isPetLoading, isError: isPetError, error: petError } = useQuery({
@@ -305,9 +307,9 @@ export default function PetDetailsPage({ params }) {
                 </div>
               </div>
 
-              {/* Ask Paws AI Card */}
-              <div className="bg-gradient-to-br from-teal-50 to-emerald-50/50 rounded-2xl border border-teal-100 p-5 mt-6 space-y-4">
-                <div className="flex items-center gap-3">
+              {/* Ask Paws AI Card — wired to global chat widget */}
+              <div className="bg-gradient-to-br from-teal-50 to-emerald-50/50 rounded-2xl border border-teal-100 p-5 mt-6">
+                <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 bg-teal-600 rounded-xl flex items-center justify-center text-white shadow-md">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
@@ -318,46 +320,17 @@ export default function PetDetailsPage({ params }) {
                     <p className="text-teal-700 text-xs font-semibold">AI Assistant powered by PawMatchAI</p>
                   </div>
                 </div>
-
-                {/* AI Chat History */}
-                <div className="bg-white rounded-xl border border-teal-100 p-4 max-h-48 overflow-y-auto space-y-3 text-xs leading-relaxed shadow-inner">
-                  {aiChatHistory.map((msg, i) => (
-                    <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                      <span className={`px-3.5 py-2 rounded-2xl max-w-[85%] ${
-                        msg.role === "user" 
-                          ? "bg-teal-700 text-white rounded-tr-none" 
-                          : "bg-slate-150 text-slate-800 rounded-tl-none border border-slate-200/50"
-                      }`}>
-                        {msg.text}
-                      </span>
-                    </div>
-                  ))}
-                  {isAiLoading && (
-                    <div className="flex justify-start">
-                      <span className="bg-slate-150 text-slate-500 px-3.5 py-2 rounded-2xl rounded-tl-none border border-slate-200/50 italic animate-pulse">
-                        Paws is typing...
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* AI Question Form */}
-                <form onSubmit={handleAiMessageSubmit} className="flex gap-2">
-                  <input
-                    type="text"
-                    value={aiQuestion}
-                    onChange={(e) => setAiQuestion(e.target.value)}
-                    placeholder={`Ask: Is ${pet.name} good with other dogs?`}
-                    className="flex-1 px-3.5 py-2.5 bg-white border border-teal-150 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 placeholder-slate-400"
-                  />
-                  <button
-                    type="submit"
-                    className="px-4 py-2.5 bg-teal-700 text-white font-bold rounded-xl text-xs hover:bg-teal-850 active:scale-95 transition-all shadow-sm cursor-pointer"
-                  >
-                    Ask
-                  </button>
-                </form>
+                <p className="text-sm text-teal-800 mb-4">
+                  Have questions about {pet.name}? Ask Paws anything about their personality, adoption process, or how to prepare your home!
+                </p>
+                <button
+                  onClick={() => startChatWithPet(pet)}
+                  className="w-full py-3 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-800 transition-colors shadow-sm flex items-center justify-center gap-2"
+                >
+                  <span>🐾</span> Chat with Paws about {pet.name}
+                </button>
               </div>
+
 
             </div>
 
