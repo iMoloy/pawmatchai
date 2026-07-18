@@ -87,7 +87,7 @@ export default function PetCard({ pet }) {
             <p className="text-lg font-bold text-teal-800">${pet.fee || '100'}</p>
           </div>
           <Link
-            href={`/explore/${pet.id}`}
+            href={`/pets/${pet.id}`}
             className="px-4 py-2.5 bg-teal-700 text-white font-semibold text-sm rounded-xl hover:bg-teal-850 hover:shadow-md transition-all duration-200"
           >
             View Details

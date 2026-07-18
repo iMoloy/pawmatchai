@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PetCard from "@/components/PetCard";
-import { placeholderPets } from "@/data/pets";
 
 export default function ExplorePage() {
   const [search, setSearch] = useState("");
@@ -13,88 +14,28 @@ export default function ExplorePage() {
   const [size, setSize] = useState("");
   const [location, setLocation] = useState("");
   const [sort, setSort] = useState("newest");
+  const [page, setPage] = useState(1);
 
-  // Advanced search/filter/sort implementation for responsive UI
-  const filteredAndSortedPets = useMemo(() => {
-    let result = [...placeholderPets];
-
-    // Search filter
-    if (search.trim()) {
-      const query = search.toLowerCase();
-      result = result.filter(
-        (pet) =>
-          pet.name.toLowerCase().includes(query) ||
-          pet.breed.toLowerCase().includes(query) ||
-          pet.species.toLowerCase().includes(query) ||
-          pet.location.toLowerCase().includes(query)
-      );
-    }
-
-    // Species filter
-    if (species) {
-      result = result.filter(
-        (pet) => pet.species.toLowerCase() === species.toLowerCase()
-      );
-    }
-
-    // Age range filter
-    if (ageRange) {
-      result = result.filter((pet) => {
-        const ageNum = parseInt(pet.age);
-        if (isNaN(ageNum)) {
-          if (pet.age.toLowerCase().includes("month") || pet.age.toLowerCase().includes("kitten") || pet.age.toLowerCase().includes("puppy")) {
-            return ageRange === "puppy";
-          }
-          return false;
+  // TanStack Query to fetch data from the Express backend
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["pets", { search, species, ageRange, size, location, sort, page }],
+    queryFn: async () => {
+      const response = await axios.get("http://localhost:5000/api/pets", {
+        params: {
+          search,
+          species,
+          ageRange,
+          size,
+          location,
+          sort,
+          page,
+          limit: 8
         }
-        if (ageRange === "puppy") return ageNum < 1;
-        if (ageRange === "young") return ageNum >= 1 && ageNum <= 3;
-        if (ageRange === "adult") return ageNum > 3 && ageNum <= 7;
-        if (ageRange === "senior") return ageNum > 7;
-        return true;
       });
-    }
-
-    // Size filter
-    if (size) {
-      result = result.filter(
-        (pet) => pet.size.toLowerCase() === size.toLowerCase()
-      );
-    }
-
-    // Location filter
-    if (location) {
-      if (location === "nearby") {
-        // Mocking "nearby" as Austin or Seattle for demo purposes
-        result = result.filter(
-          (pet) => pet.location.includes("Austin") || pet.location.includes("Seattle")
-        );
-      }
-    }
-
-    // Sorting
-    result.sort((a, b) => {
-      if (sort === "newest") {
-        return b.id - a.id; // Mock newer items by higher ID
-      }
-      if (sort === "youngest") {
-        const getAgeMonths = (ageStr) => {
-          const val = parseInt(ageStr);
-          if (isNaN(val)) return 12;
-          if (ageStr.toLowerCase().includes("month")) return val;
-          return val * 12;
-        };
-        return getAgeMonths(a.age) - getAgeMonths(b.age);
-      }
-      if (sort === "closest") {
-        // Mock closest sorting
-        return a.location.localeCompare(b.location);
-      }
-      return 0;
-    });
-
-    return result;
-  }, [search, species, ageRange, size, location, sort]);
+      return response.data;
+    },
+    placeholderData: (keepPreviousData) => keepPreviousData, // Keep previous data visible while fetching new page
+  });
 
   const clearFilters = () => {
     setSearch("");
@@ -103,6 +44,12 @@ export default function ExplorePage() {
     setSize("");
     setLocation("");
     setSort("newest");
+    setPage(1);
+  };
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -138,7 +85,7 @@ export default function ExplorePage() {
             <div className="relative w-full max-w-xl mx-auto">
               <label htmlFor="search" className="sr-only">Search pets</label>
               <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                <svg className="h-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -146,7 +93,10 @@ export default function ExplorePage() {
                 id="search"
                 type="search"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setPage(1); // Reset page to 1 on search
+                }}
                 placeholder="Search by name, breed, location..."
                 className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent focus:bg-white transition-all duration-200"
               />
@@ -161,7 +111,10 @@ export default function ExplorePage() {
                 <select
                   id="species"
                   value={species}
-                  onChange={(e) => setSpecies(e.target.value)}
+                  onChange={(e) => {
+                    setSpecies(e.target.value);
+                    setPage(1);
+                  }}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="">All Species</option>
@@ -176,7 +129,10 @@ export default function ExplorePage() {
                 <select
                   id="age"
                   value={ageRange}
-                  onChange={(e) => setAgeRange(e.target.value)}
+                  onChange={(e) => {
+                    setAgeRange(e.target.value);
+                    setPage(1);
+                  }}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="">All Ages</option>
@@ -193,7 +149,10 @@ export default function ExplorePage() {
                 <select
                   id="size"
                   value={size}
-                  onChange={(e) => setSize(e.target.value)}
+                  onChange={(e) => {
+                    setSize(e.target.value);
+                    setPage(1);
+                  }}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="">All Sizes</option>
@@ -209,7 +168,10 @@ export default function ExplorePage() {
                 <select
                   id="location"
                   value={location}
-                  onChange={(e) => setLocation(e.target.value)}
+                  onChange={(e) => {
+                    setLocation(e.target.value);
+                    setPage(1);
+                  }}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="">Anywhere</option>
@@ -223,7 +185,10 @@ export default function ExplorePage() {
                 <select
                   id="sort"
                   value={sort}
-                  onChange={(e) => setSort(e.target.value)}
+                  onChange={(e) => {
+                    setSort(e.target.value);
+                    setPage(1);
+                  }}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="newest">Newest Listed</option>
@@ -252,38 +217,109 @@ export default function ExplorePage() {
           </div>
         </section>
 
-        {/* Results Info */}
-        <div className="flex justify-between items-center mb-6">
-          <p className="text-slate-600 text-sm font-medium">
-            Showing <span className="font-bold text-slate-800">{filteredAndSortedPets.length}</span> pets available
-          </p>
-        </div>
-
-        {/* Responsive Grid: 4 columns desktop / 2 columns tablet / 1 column mobile */}
-        {filteredAndSortedPets.length > 0 ? (
+        {/* Loading Skeletons */}
+        {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filteredAndSortedPets.map((pet) => (
-              <PetCard key={pet.id} pet={pet} />
+            {[...Array(8)].map((_, index) => (
+              <div key={index} className="bg-white rounded-2xl overflow-hidden border border-slate-200/60 p-4 space-y-4 animate-pulse">
+                <div className="aspect-[4/3] bg-slate-200 rounded-xl"></div>
+                <div className="h-4 bg-slate-200 rounded w-1/3"></div>
+                <div className="h-6 bg-slate-200 rounded w-3/4"></div>
+                <div className="h-4 bg-slate-200 rounded w-1/2"></div>
+                <div className="flex justify-between items-center pt-2">
+                  <div className="h-6 bg-slate-200 rounded w-1/4"></div>
+                  <div className="h-8 bg-slate-200 rounded w-1/3"></div>
+                </div>
+              </div>
             ))}
           </div>
-        ) : (
-          <div className="bg-white rounded-2xl border border-slate-200/60 p-12 text-center max-w-md mx-auto">
-            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold text-slate-800 mb-1">No pets found</h3>
-            <p className="text-slate-500 text-sm mb-6">
-              We couldn't find any pets matching your criteria. Try adjusting or clearing your filters.
+        ) : isError ? (
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-md mx-auto">
+            <svg className="w-12 h-12 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <h3 className="text-lg font-bold text-red-800 mb-1">Failed to load pets</h3>
+            <p className="text-red-700 text-sm mb-4">
+              {error?.message || "There was an error communicating with the backend server."}
             </p>
             <button
-              onClick={clearFilters}
-              className="px-6 py-2 bg-teal-700 text-white font-semibold rounded-xl text-sm hover:bg-teal-800 transition-colors"
+              onClick={() => clearFilters()}
+              className="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl text-sm hover:bg-red-800 transition-colors"
             >
-              Reset Filters
+              Retry Connection
             </button>
           </div>
+        ) : (
+          <>
+            {/* Results Info */}
+            <div className="flex justify-between items-center mb-6">
+              <p className="text-slate-650 text-sm font-medium">
+                Showing <span className="font-bold text-slate-800">{data?.pets?.length || 0}</span> of <span className="font-bold text-slate-800">{data?.totalCount || 0}</span> pets available
+              </p>
+            </div>
+
+            {/* Pets Grid */}
+            {data?.pets?.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {data.pets.map((pet) => (
+                  <PetCard key={pet.id} pet={pet} />
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white rounded-2xl border border-slate-200/60 p-12 text-center max-w-md mx-auto">
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-slate-800 mb-1">No pets found</h3>
+                <p className="text-slate-500 text-sm mb-6">
+                  We couldn't find any pets matching your criteria. Try adjusting or clearing your filters.
+                </p>
+                <button
+                  onClick={clearFilters}
+                  className="px-6 py-2 bg-teal-700 text-white font-semibold rounded-xl text-sm hover:bg-teal-800 transition-colors"
+                >
+                  Reset Filters
+                </button>
+              </div>
+            )}
+
+            {/* Pagination Controls */}
+            {data?.totalPages > 1 && (
+              <nav className="mt-12 flex justify-center items-center gap-1.5" aria-label="Pagination">
+                <button
+                  onClick={() => handlePageChange(Math.max(1, page - 1))}
+                  disabled={page === 1}
+                  className="px-3.5 py-2 text-slate-650 bg-white border border-slate-200 rounded-xl text-sm font-semibold hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Previous
+                </button>
+                
+                {[...Array(data.totalPages)].map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handlePageChange(i + 1)}
+                    className={`w-10 h-10 flex items-center justify-center text-sm font-bold rounded-xl transition-all ${
+                      page === i + 1
+                        ? "bg-teal-700 text-white shadow-md shadow-teal-700/20"
+                        : "bg-white text-slate-650 border border-slate-200 hover:bg-slate-50"
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+
+                <button
+                  onClick={() => handlePageChange(Math.min(data.totalPages, page + 1))}
+                  disabled={page === data.totalPages}
+                  className="px-3.5 py-2 text-slate-650 bg-white border border-slate-200 rounded-xl text-sm font-semibold hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Next
+                </button>
+              </nav>
+            )}
+          </>
         )}
       </main>
 
