@@ -6,9 +6,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & About */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="text-2xl font-bold text-white mb-4 block">
-              PawMatch<span className="text-coral-500">AI</span>
+          <div className="md:col-span-1 lg:col-span-2">
+            <Link href="/" className="flex items-center gap-2 text-2xl font-black text-white mb-4 tracking-tight">
+              <img src="/logo.png" alt="PawMatchAI Logo" className="w-8 h-8 object-contain brightness-0 invert" />
+              <span>PawMatch<span className="text-teal-300">AI</span></span>
             </Link>
             <p className="text-slate-300 text-sm">
               Connecting loving families with their perfect pets through intelligent AI matching technology.

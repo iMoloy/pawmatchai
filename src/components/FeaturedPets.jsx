@@ -1,17 +1,31 @@
-import PetCard from './PetCard';
+"use client";
 
-const placeholderPets = [
-  { id: 1, name: 'Buddy', breed: 'Golden Retriever', age: 3, location: 'New York, NY', badge: 'Available' },
-  { id: 2, name: 'Luna', breed: 'Persian Cat', age: 2, location: 'Los Angeles, CA', badge: 'New' },
-  { id: 3, name: 'Max', breed: 'Beagle', age: 4, location: 'Chicago, IL', badge: 'Available' },
-  { id: 4, name: 'Bella', breed: 'Siamese Cat', age: 1, location: 'Miami, FL', badge: 'Urgent' },
-  { id: 5, name: 'Charlie', breed: 'Poodle', age: 2, location: 'Seattle, WA', badge: 'Available' },
-  { id: 6, name: 'Daisy', breed: 'Maine Coon', age: 3, location: 'Denver, CO', badge: 'New' },
-  { id: 7, name: 'Rocky', breed: 'Bulldog', age: 5, location: 'Boston, MA', badge: 'Available' },
-  { id: 8, name: 'Mittens', breed: 'Ragdoll', age: 2, location: 'Austin, TX', badge: 'Available' },
+import React from "react";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import PetCard from "./PetCard";
+
+// Mock data to fall back on if backend is unreachable
+const fallbackPets = [
+  { id: 1, name: 'Buddy', breed: 'Golden Retriever', age: '3 years', location: 'New York, NY', fee: 150, image: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=800', species: 'Dog' },
+  { id: 2, name: 'Luna', breed: 'Persian Cat', age: '2 years', location: 'Los Angeles, CA', fee: 100, image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=800', species: 'Cat' },
+  { id: 3, name: 'Max', breed: 'Beagle', age: '4 years', location: 'Chicago, IL', fee: 120, image: 'https://images.unsplash.com/photo-1537151608804-ea2d15a4eb35?auto=format&fit=crop&q=80&w=800', species: 'Dog' },
+  { id: 4, name: 'Bella', breed: 'Siamese Cat', age: '1 year', location: 'Miami, FL', fee: 90, image: 'https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?auto=format&fit=crop&q=80&w=800', species: 'Cat' }
 ];
 
 export default function FeaturedPets() {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["featuredPets"],
+    queryFn: async () => {
+      const response = await axios.get("http://localhost:5000/api/pets?limit=8");
+      return response.data;
+    },
+    retry: 1, // Only retry once so it falls back quickly if backend is down
+  });
+
+  const pets = data?.data || fallbackPets;
+
   return (
     <section className="py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,19 +38,35 @@ export default function FeaturedPets() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {placeholderPets.map((pet) => (
-            <PetCard key={pet.id} pet={pet} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {/* Loading Skeletons */}
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="animate-pulse bg-white rounded-2xl shadow-sm h-[400px]">
+                <div className="bg-slate-200 h-56 rounded-t-2xl"></div>
+                <div className="p-5 space-y-4">
+                  <div className="h-6 bg-slate-200 rounded w-1/2"></div>
+                  <div className="h-4 bg-slate-200 rounded w-3/4"></div>
+                  <div className="h-10 bg-slate-200 rounded mt-4"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {pets.map((pet) => (
+              <PetCard key={pet.id || pet._id} pet={pet} />
+            ))}
+          </div>
+        )}
 
         <div className="text-center mt-12">
-          <a
+          <Link
             href="/explore"
-            className="inline-block px-8 py-3 bg-teal-700 text-white font-medium rounded-full hover:bg-teal-800 transition-colors"
+            className="inline-flex items-center px-8 py-3 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-800 transition-colors shadow-sm"
           >
-            View All Pets
-          </a>
+            View All Pets →
+          </Link>
         </div>
       </div>
     </section>
