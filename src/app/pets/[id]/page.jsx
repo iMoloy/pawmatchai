@@ -70,21 +70,21 @@ export default function PetDetailsPage({ params }) {
 
   // AI Assistant state
   const [aiQuestion, setAiQuestion] = useState("");
-  const [aiChatHistory, setAiChatHistory] = useState([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
 
-  // Set initial chat when pet loads
-  React.useEffect(() => {
-    if (pet) {
-      setAiChatHistory([
-        {
-          role: "assistant",
-          text: `Hi! I'm Paws, your AI adoption guide. Ask me anything about ${pet.name} (e.g., "Is they good with kids?", "What is their energy level?")!`,
-        },
-      ]);
-      setActiveImage(pet.image);
-    }
-  }, [pet]);
+  // AI chat history - computed from pet data to avoid setState in useEffect
+  const initialChatText = useMemo(() => 
+    pet ? `Hi! I'm Paws, your AI adoption guide. Ask me anything about ${pet.name} (e.g., "Is they good with kids?", "What is their energy level?")!` 
+         : "Hi! I'm Paws, your AI adoption guide. Ask me anything about this pet!",
+    [pet]
+  );
+
+  const [aiChatHistory, setAiChatHistory] = useState([
+    {
+      role: "assistant",
+      text: initialChatText,
+    },
+  ]);
 
   if (isPetLoading) {
     return (

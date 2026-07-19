@@ -66,7 +66,7 @@ export default function ContactPage() {
             <div className="text-5xl mb-4">💬</div>
             <h1 className="text-5xl font-black mb-4">Get in Touch</h1>
             <p className="text-lg text-slate-300 leading-relaxed">
-              Have a question, a partnership proposal, or just want to say hi? We'd love to hear from you.
+              Have a question, a partnership proposal, or just want to say hi? We&apos;d love to hear from you.
             </p>
           </div>
         </section>
@@ -129,7 +129,7 @@ export default function ContactPage() {
                   <div className="text-center py-12">
                     <div className="text-6xl mb-4">🎉</div>
                     <h3 className="text-2xl font-black text-slate-800 mb-2">Message Sent!</h3>
-                    <p className="text-slate-500">Thanks for reaching out! We'll get back to you within 1–2 business days.</p>
+                    <p className="text-slate-500">Thanks for reaching out! We&apos;ll get back to you within 1–2 business days.</p>
                     <button
                       onClick={() => { setIsSuccess(false); setForm({ name: "", email: "", subject: "", message: "" }); }}
                       className="mt-6 px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-colors"

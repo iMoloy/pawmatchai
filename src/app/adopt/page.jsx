@@ -72,7 +72,7 @@ export default function AdoptionRequestPage() {
               Your adoption request for <span className="font-bold text-teal-700">{samplePet.name}</span> has been received.
             </p>
             <p className="text-slate-500 mb-8 leading-relaxed">
-              We'll reach out to you via email to schedule your meet-and-greet within 1–2 business days.
+              We&apos;ll reach out to you via email to schedule your meet-and-greet within 1–2 business days.
             </p>
 
             <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm mb-8 text-left space-y-2">
@@ -281,7 +281,7 @@ export default function AdoptionRequestPage() {
               <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start gap-3">
                 <span className="text-amber-600 text-lg shrink-0">ℹ️</span>
                 <p className="text-sm text-amber-800 leading-relaxed">
-                  Submitting a request doesn't guarantee adoption. Our team will review your application and contact you to schedule a meet-and-greet.
+                  Submitting a request doesn&apos;t guarantee adoption. Our team will review your application and contact you to schedule a meet-and-greet.
                 </p>
               </div>
 

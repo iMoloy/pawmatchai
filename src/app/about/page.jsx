@@ -47,9 +47,9 @@ export default function AboutPage() {
             <div>
               <h2 className="text-4xl font-black text-slate-800 mb-6">Why we built this</h2>
               <div className="space-y-4 text-slate-600 leading-relaxed">
-                <p>Every year, millions of pets sit in shelters waiting for a family. At the same time, millions of people search for the perfect companion but struggle to find the right match. The problem isn't a lack of pets — it's a lack of connection.</p>
+                <p>Every year, millions of pets sit in shelters waiting for a family. At the same time, millions of people search for the perfect companion but struggle to find the right match. The problem isn&apos;t a lack of pets — it&apos;s a lack of connection.</p>
                 <p>PawMatch AI was created to bridge that gap. By combining a modern browsing experience with AI-powered lifestyle matching, we help people find pets that truly fit their lives — not just ones that look cute in a photo.</p>
-                <p>Our AI assistant <strong>"Paws"</strong> is available 24/7 to answer questions about adoption, help you understand a pet's personality, and guide you through the entire process.</p>
+                <p>Our AI assistant <strong>&quot;Paws&quot;</strong> is available 24/7 to answer questions about adoption, help you understand a pet&apos;s personality, and guide you through the entire process.</p>
               </div>
               <Link href="/ai-match" className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-800 transition-colors shadow-sm">
                 Try AI Matching

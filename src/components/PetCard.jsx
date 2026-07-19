@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function PetCard({ pet, aiReason, onLike, onDislike }) {
   return (
@@ -7,11 +8,12 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }) {
       {/* Image with zoom on hover */}
       <div className="aspect-[4/3] bg-slate-100 relative overflow-hidden">
         {pet.image ? (
-          <img
+          <Image
             src={pet.image}
             alt={pet.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-            loading="lazy"
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
@@ -86,7 +88,7 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }) {
             <div className="flex items-start gap-3">
               <span className="text-teal-600 text-lg">✨</span>
               <p className="text-sm text-slate-700 italic leading-relaxed flex-1">
-                "{aiReason}"
+                &quot;{aiReason}&quot;
               </p>
             </div>
             {(onLike || onDislike) && (

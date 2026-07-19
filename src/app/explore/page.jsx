@@ -354,7 +354,7 @@ export default function ExplorePage() {
                   No pets found
                 </h3>
                 <p className="text-slate-500 text-sm mb-6">
-                  We couldn't find any pets matching your criteria. Try
+                  We couldn&apos;t find any pets matching your criteria. Try
                   adjusting or clearing your filters.
                 </p>
                 <button

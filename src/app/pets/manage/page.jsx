@@ -8,12 +8,14 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ManagePetsPage() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
   const [petToDelete, setPetToDelete] = useState(null);
 
-  // Fetch user's pets (Mock endpoint for now, assuming it returns { pets: [] })
+  // Fetch user's pets
   const {
     data: pets = [],
     isLoading,
@@ -21,15 +23,14 @@ export default function ManagePetsPage() {
   } = useQuery({
     queryKey: ["myPets"],
     queryFn: async () => {
-      // If the backend doesn't have /api/pets/mine yet, we will gracefully fallback to an empty array
-      // or mock data just for visual demonstration if it fails.
       try {
         const apiBaseUrl =
           process.env.NEXT_PUBLIC_API_URL ||
           "https://pawmatchai-server.onrender.com";
         const response = await axios.get(`${apiBaseUrl}/api/pets/mine`, {
-          // Pass token here if we had real auth hooked up to axios interceptors
-          headers: { Authorization: `Bearer mock-token` },
+          headers: user?.token
+            ? { Authorization: `Bearer ${user.token}` }
+            : undefined,
         });
         return response.data.pets || [];
       } catch (err) {
@@ -47,7 +48,11 @@ export default function ManagePetsPage() {
       const apiBaseUrl =
         process.env.NEXT_PUBLIC_API_URL ||
         "https://pawmatchai-server.onrender.com";
-      await axios.delete(`${apiBaseUrl}/api/pets/${id}`);
+      await axios.delete(`${apiBaseUrl}/api/pets/${id}`, {
+        headers: user?.token
+          ? { Authorization: `Bearer ${user.token}` }
+          : undefined,
+      });
     },
     // When mutate is called:
     onMutate: async (deletedId) => {
@@ -200,7 +205,7 @@ export default function ManagePetsPage() {
                   No pets listed yet
                 </h3>
                 <p className="text-slate-500 max-w-sm mb-8">
-                  You haven't added any pets for adoption yet. Start by creating
+                  You haven&apos;t added any pets for adoption yet. Start by creating
                   your first listing!
                 </p>
                 <Link
@@ -264,13 +269,13 @@ export default function ManagePetsPage() {
                           </span>
                         </td>
                         <td className="px-6 py-4 text-sm text-slate-500 font-medium">
-                          {new Date(
-                            pet.createdAt || Date.now(),
-                          ).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
+                          {pet.createdAt
+                            ? new Date(pet.createdAt).toLocaleDateString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              })
+                            : "Recently added"}
                         </td>
                         <td className="px-6 py-4 text-right space-x-3">
                           <Link

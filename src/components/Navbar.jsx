@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
@@ -42,11 +43,13 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 text-xl font-black text-teal-700 tracking-tight shrink-0">
-            <img src="/logo.png" alt="PawMatchAI Logo" className="w-8 h-8 object-contain" />
-            <span>PawMatch<span className="text-pink-500">AI</span></span>
-          </Link>
+  {/* Logo */}
+  <Link href="/" className="flex items-center gap-2 text-xl font-black text-teal-700 tracking-tight shrink-0">
+    <div className="relative w-8 h-8">
+      <Image src="/logo.png" alt="PawMatchAI Logo" fill className="object-contain" />
+    </div>
+    <span>PawMatch<span className="text-pink-500">AI</span></span>
+  </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-7">

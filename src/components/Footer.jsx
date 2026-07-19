@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -8,8 +9,8 @@ export default function Footer() {
           {/* Logo & About */}
           <div className="md:col-span-1 lg:col-span-2 pr-4">
             <Link href="/" className="flex items-center gap-2 text-2xl font-black text-white mb-4 tracking-tight">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-sm">
-                <img src="/logo.png" alt="PawMatchAI Logo" className="w-full h-full object-contain" />
+              <div className="relative w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-sm">
+                <Image src="/logo.png" alt="PawMatchAI Logo" fill className="object-contain" />
               </div>
               <span>PawMatch<span className="text-teal-400">AI</span></span>
             </Link>

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section className="h-[65vh] min-h-125 bg-linear-to-br from-teal-50 to-slate-100 flex items-center">
@@ -43,18 +45,18 @@ export default function Hero() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="/match"
+              <Link
+                href="/ai-match"
                 className="px-8 py-4 bg-teal-700 text-white rounded-full font-semibold text-center hover:bg-teal-800 transition-colors shadow-lg hover:shadow-xl"
               >
                 Find My Match with AI
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/explore"
                 className="px-8 py-4 bg-white text-teal-700 border border-teal-700 rounded-full font-semibold text-center hover:bg-teal-50 transition-colors"
               >
                 Explore Pets
-              </a>
+              </Link>
             </div>
           </div>
 

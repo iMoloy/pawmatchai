@@ -6,9 +6,11 @@ import axios from "axios";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/context/AuthContext";
 
 export default function AddPetPage() {
   const router = useRouter();
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +18,7 @@ export default function AddPetPage() {
     species: "Dog",
     age: "",
     size: "Medium",
+    weight: "",
     gender: "Unknown",
     location: "",
     fee: "",
@@ -43,6 +46,8 @@ export default function AddPetPage() {
     if (!formData.breed.trim()) newErrors.breed = "Breed is required";
     if (!formData.age.trim())
       newErrors.age = "Age is required (e.g. '2 years')";
+    if (!formData.weight.trim())
+      newErrors.weight = "Weight is required (e.g. '45 lbs')";
     if (!formData.location.trim()) newErrors.location = "Location is required";
     if (!formData.fee.trim()) newErrors.fee = "Adoption fee is required";
     if (!formData.shortDescription.trim())
@@ -60,11 +65,36 @@ export default function AddPetPage() {
 
     setIsSubmitting(true);
     try {
-      // API call to backend (assuming endpoint exists on server)
       const apiBaseUrl =
         process.env.NEXT_PUBLIC_API_URL ||
         "https://pawmatchai-server.onrender.com";
-      await axios.post(`${apiBaseUrl}/api/pets`, formData);
+
+      // Map the form's field names to what the backend Pet schema expects.
+      const description = formData.fullDescription.trim()
+        ? `${formData.shortDescription}\n\n${formData.fullDescription}`
+        : formData.shortDescription;
+
+      const payload = {
+        name: formData.name,
+        breed: formData.breed,
+        species: formData.species,
+        age: formData.age,
+        location: formData.location,
+        fee: Number(formData.fee),
+        image:
+          formData.imageUrl ||
+          "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=800",
+        size: formData.size.toLowerCase(), // backend enum is lowercase
+        sex: formData.gender, // backend field is called "sex"
+        description,
+        weight: formData.weight,
+      };
+
+      await axios.post(`${apiBaseUrl}/api/pets`, payload, {
+        headers: user?.token
+          ? { Authorization: `Bearer ${user.token}` }
+          : undefined,
+      });
 
       setToastMessage("Pet successfully added!");
 
@@ -74,8 +104,11 @@ export default function AddPetPage() {
       }, 1500);
     } catch (error) {
       console.error("Failed to add pet:", error);
+      const serverMessage = error.response?.data?.message;
       setErrors({
-        submit: "Failed to add pet. Please try again or check backend server.",
+        submit: serverMessage
+          ? `Failed to add pet: ${serverMessage}`
+          : "Failed to add pet. Please try again or check backend server.",
       });
       setIsSubmitting(false);
     }
@@ -236,6 +269,25 @@ export default function AddPetPage() {
                           Extra Large (101+ lbs)
                         </option>
                       </select>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                        Weight
+                      </label>
+                      <input
+                        type="text"
+                        name="weight"
+                        value={formData.weight}
+                        onChange={handleChange}
+                        placeholder="e.g. 45 lbs"
+                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.weight ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                      />
+                      {errors.weight && (
+                        <p className="text-xs text-red-500 font-medium mt-1">
+                          {errors.weight}
+                        </p>
+                      )}
                     </div>
 
                     <div className="space-y-1">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
@@ -8,23 +8,15 @@ export default function ProtectedRoute({ children }) {
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
-    if (!isLoading) {
-      if (!user) {
-        // Not authenticated, redirect to login and save the current location
-        // Using Next.js searchParams pattern for the redirect callback
-        router.push(`/login?callbackUrl=${encodeURIComponent(pathname)}`);
-      } else {
-        // Authenticated
-        setIsAuthorized(true);
-      }
+    if (!isLoading && !user) {
+      router.replace(`/login?callbackUrl=${encodeURIComponent(pathname)}`);
     }
   }, [user, isLoading, router, pathname]);
 
   // Show a loading skeleton/spinner while checking auth state
-  if (isLoading || !isAuthorized) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center">
@@ -36,6 +28,10 @@ export default function ProtectedRoute({ children }) {
         </div>
       </div>
     );
+  }
+
+  if (!user) {
+    return null;
   }
 
   return <>{children}</>;

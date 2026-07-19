@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import axios from "axios";
@@ -8,22 +8,19 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
+  const [user, setUser] = useState(() => {
+    if (typeof window === "undefined") return null;
 
-  // Load user from local storage on initial mount
-  useEffect(() => {
-    const storedUser = localStorage.getItem("pawmatch_user");
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (e) {
-        console.error("Failed to parse stored user", e);
-      }
+    try {
+      const storedUser = localStorage.getItem("pawmatch_user");
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (e) {
+      console.error("Failed to parse stored user", e);
+      return null;
     }
-    setIsLoading(false);
-  }, []);
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const login = async (email, password) => {
     // Mock login delay
