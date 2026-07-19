@@ -63,7 +63,10 @@ export function AuthProvider({ children }) {
 
   const loginWithGoogle = async (accessToken) => {
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/google`, { accessToken });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL || "https://pawmatchai-server.onrender.com"}/api/auth/google`,
+        { accessToken },
+      );
       if (res.data.success) {
         setUser(res.data.user);
         localStorage.setItem("pawmatch_user", JSON.stringify(res.data.user));
@@ -72,7 +75,12 @@ export function AuthProvider({ children }) {
       return { success: false, message: res.data.message };
     } catch (error) {
       console.error("Google login failed", error);
-      return { success: false, message: error.response?.data?.message || "Google login failed. Please try again." };
+      return {
+        success: false,
+        message:
+          error.response?.data?.message ||
+          "Google login failed. Please try again.",
+      };
     }
   };
 
@@ -83,8 +91,12 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
-      <AuthContext.Provider value={{ user, isLoading, login, register, loginWithGoogle, logout }}>
+    <GoogleOAuthProvider
+      clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}
+    >
+      <AuthContext.Provider
+        value={{ user, isLoading, login, register, loginWithGoogle, logout }}
+      >
         {children}
       </AuthContext.Provider>
     </GoogleOAuthProvider>

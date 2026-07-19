@@ -1,13 +1,28 @@
 "use client";
 
-import React, { createContext, useContext, useState, useRef, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 
 const ChatContext = createContext();
 
 export function ChatProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: "assistant", content: "Hi! I'm Paws 🐾 your AI adoption assistant. How can I help you find your perfect pet today?", suggestions: ["Find a pet for me", "How does adoption work?", "What are the fees?"] }
+    {
+      role: "assistant",
+      content:
+        "Hi! I'm Paws 🐾 your AI adoption assistant. How can I help you find your perfect pet today?",
+      suggestions: [
+        "Find a pet for me",
+        "How does adoption work?",
+        "What are the fees?",
+      ],
+    },
   ]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
@@ -27,7 +42,7 @@ export function ChatProvider({ children }) {
 
   const openChat = useCallback(() => setIsOpen(true), []);
   const closeChat = useCallback(() => setIsOpen(false), []);
-  const toggleChat = useCallback(() => setIsOpen(prev => !prev), []);
+  const toggleChat = useCallback(() => setIsOpen((prev) => !prev), []);
 
   const sendMessage = useCallback(async (userText, contextPetId = null) => {
     // Use ref instead of state for the guard so we don't have stale closure issues
@@ -39,23 +54,31 @@ export function ChatProvider({ children }) {
     setIsStreaming(true);
 
     // Add user message
-    setMessages(prev => [...prev, { role: "user", content: userText }]);
+    setMessages((prev) => [...prev, { role: "user", content: userText }]);
     // Add empty assistant placeholder
-    setMessages(prev => [...prev, { role: "assistant", content: "", streaming: true }]);
+    setMessages((prev) => [
+      ...prev,
+      { role: "assistant", content: "", streaming: true },
+    ]);
 
     try {
-      const response = await fetch("http://localhost:5000/api/ai/chat", {
+      const apiBaseUrl =
+        process.env.NEXT_PUBLIC_API_URL ||
+        "https://pawmatchai-server.onrender.com";
+      const response = await fetch(`${apiBaseUrl}/api/ai/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, message: userText, contextPetId })
+        body: JSON.stringify({ sessionId, message: userText, contextPetId }),
       });
 
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
       }
-      
+
       if (!response.body) {
-        throw new Error("ReadableStream not supported or response body is null");
+        throw new Error(
+          "ReadableStream not supported or response body is null",
+        );
       }
 
       const reader = response.body.getReader();
@@ -75,7 +98,7 @@ export function ChatProvider({ children }) {
           try {
             const data = JSON.parse(line.slice(6));
             if (data.type === "chunk") {
-              setMessages(prev => {
+              setMessages((prev) => {
                 const updated = [...prev];
                 const last = { ...updated[updated.length - 1] };
                 last.content = last.content + data.content;
@@ -85,9 +108,12 @@ export function ChatProvider({ children }) {
             } else if (data.type === "suggestions") {
               setSuggestions(data.suggestions);
             } else if (data.type === "done") {
-              setMessages(prev => {
+              setMessages((prev) => {
                 const updated = [...prev];
-                updated[updated.length - 1] = { ...updated[updated.length - 1], streaming: false };
+                updated[updated.length - 1] = {
+                  ...updated[updated.length - 1],
+                  streaming: false,
+                };
                 return updated;
               });
             } else if (data.type === "error") {
@@ -100,12 +126,13 @@ export function ChatProvider({ children }) {
       }
     } catch (error) {
       console.error("Chat stream error:", error);
-      setMessages(prev => {
+      setMessages((prev) => {
         const updated = [...prev];
         updated[updated.length - 1] = {
           role: "assistant",
-          content: "Woof! I'm having trouble connecting right now. Please make sure the backend server is running on port 5000 and try again! 🐾",
-          streaming: false
+          content:
+            "Woof! I'm having trouble connecting right now. Please make sure the backend server is running on port 5000 and try again! 🐾",
+          streaming: false,
         };
         return updated;
       });
@@ -116,14 +143,29 @@ export function ChatProvider({ children }) {
   }, []); // No dependencies needed — uses ref for guard
 
   // Called by "Ask Paws about this pet" buttons
-  const startChatWithPet = useCallback((pet) => {
-    setIsOpen(true);
-    const petMessage = `Tell me about ${pet.name}, a ${pet.age} ${pet.breed} available in ${pet.location}.`;
-    sendMessage(petMessage, pet.id);
-  }, [sendMessage]);
+  const startChatWithPet = useCallback(
+    (pet) => {
+      setIsOpen(true);
+      const petMessage = `Tell me about ${pet.name}, a ${pet.age} ${pet.breed} available in ${pet.location}.`;
+      sendMessage(petMessage, pet.id);
+    },
+    [sendMessage],
+  );
 
   return (
-    <ChatContext.Provider value={{ isOpen, messages, isStreaming, suggestions, toggleChat, openChat, closeChat, sendMessage, startChatWithPet }}>
+    <ChatContext.Provider
+      value={{
+        isOpen,
+        messages,
+        isStreaming,
+        suggestions,
+        toggleChat,
+        openChat,
+        closeChat,
+        sendMessage,
+        startChatWithPet,
+      }}
+    >
       {children}
     </ChatContext.Provider>
   );
