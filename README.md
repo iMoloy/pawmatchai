@@ -1,11 +1,12 @@
 <div align="center">
-  <h1>🐾 PawMatchAI — Frontend</h1>
-  <p>AI-powered pet adoption platform built with Next.js 16, React 19, and Tailwind CSS</p>
+  <h1>🐾 PawMatchAI</h1>
+  <p>AI-powered pet adoption platform built with Next.js 16, React 19, and Tailwind CSS v4</p>
   <p>
-    <img src="https://img.shields.io/badge/Next.js-16.2-black?logo=nextdotjs" />
+    <img src="https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react" />
     <img src="https://img.shields.io/badge/TailwindCSS-4-38B2AC?logo=tailwind-css" />
     <img src="https://img.shields.io/badge/TanStack_Query-5-FF4154" />
+    <img src="https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript" />
   </p>
 </div>
 
@@ -15,7 +16,9 @@
 
 PawMatchAI is a modern, full-stack pet adoption platform that uses AI to match adopters with their ideal companion. This repository contains the **Next.js frontend** client.
 
-The backend lives in a separate repository: [`pawmatch-server`](https://github.com/iMoloy/pawmatchai-server).
+The backend lives in a separate repository: [`pawmatchai-server`](https://github.com/iMoloy/pawmatchai-server).
+
+Live demo: [https://pawmatchai-server.onrender.com](https://pawmatchai-server.onrender.com)
 
 ---
 
@@ -25,34 +28,45 @@ The backend lives in a separate repository: [`pawmatch-server`](https://github.c
 |------|-------|-------------|
 | 🏠 Home | `/` | Landing page with hero, features, and CTA |
 | 🔍 Explore Pets | `/explore` | Search, filter, and sort pets with pagination |
-| 🐶 Pet Details | `/pets/:id` | Full pet profile with gallery and AI chat |
+| 🐶 Pet Details | `/explore/:id` | Full pet profile with gallery and inline AI chat |
 | 🤖 AI Match | `/ai-match` | Multi-step lifestyle quiz → ranked AI recommendations |
 | 💬 Chat (Paws) | Floating Widget | SSE-streamed AI chat assistant on every page |
-| 📋 Dashboard | `/dashboard` | User profile, stats, AI matches, chat preview |
+| 📋 Dashboard | `/dashboard` | User profile, stats, AI matches, and chat preview |
 | ➕ Add Pet | `/pets/add` | Protected form to list a new pet for adoption |
-| ⚙️ Manage Pets | `/pets/manage` | CRUD table for your own listings |
+| ⚙️ Manage Pets | `/pets/manage` | CRUD table for your own pet listings |
 | 🤝 Adopt | `/adopt` | Adoption request / checkout flow |
-| 🔐 Login | `/login` | Email/password + Google OAuth + Demo account |
+| 🔐 Login | `/login` | Email/password + Google OAuth |
 | 📝 Register | `/register` | Account creation with validation |
+| ℹ️ About | `/about` | About the platform and mission |
+| 📞 Contact | `/contact` | Contact form |
+| ❓ FAQ | `/faq` | Frequently asked questions |
+| 🆘 Help | `/help` | Help centre |
+| 🔒 Privacy | `/privacy` | Privacy policy |
+| 📄 Terms | `/terms` | Terms of service |
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Framework**: Next.js 16 (App Router, Turbopack)
-- **UI**: React 19, Tailwind CSS v4
-- **Data Fetching**: TanStack Query v5, Axios
-- **Auth**: Custom `AuthContext` (JWT-ready, mocked for demo)
-- **AI Chat**: SSE streaming via native `fetch` ReadableStream
-- **State**: React Context (AuthContext, ChatContext)
+| Layer | Technology |
+|-------|-----------|
+| **Framework** | Next.js 16 (App Router, Turbopack) |
+| **Language** | TypeScript 6 |
+| **UI** | React 19, Tailwind CSS v4 |
+| **Data Fetching** | TanStack Query v5, Axios |
+| **Auth** | JWT via `AuthContext` + Google OAuth (`@react-oauth/google`) |
+| **AI Chat** | SSE streaming via native `fetch` ReadableStream |
+| **Charts** | Recharts v2 |
+| **State** | React Context (`AuthContext`, `ChatContext`) |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js v18+
-- The `pawmatch-server` backend running on port 5000
+- The [`pawmatchai-server`](https://github.com/iMoloy/pawmatchai-server) backend running (or use the hosted instance)
 
 ### 1. Clone & Install
 
@@ -68,12 +82,7 @@ npm install
 cp .env.example .env.local
 ```
 
-Edit `.env.local`:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5000
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-google-oauth-client-id
-```
+Edit `.env.local` with your values (see [Environment Variables](#-environment-variables) below).
 
 ### 3. Run the Dev Server
 
@@ -83,7 +92,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-> **Note:** Make sure the backend server is also running on port 5000 for data fetching and AI features to work.
+> **Note:** All AI features and pet data require the backend server. You can point `NEXT_PUBLIC_API_URL` at the hosted instance (`https://pawmatchai-server.onrender.com`) or run the server locally on port 5000.
 
 ---
 
@@ -91,51 +100,72 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ```
 src/
-├── app/                    # Next.js App Router pages
-│   ├── ai-match/           # AI quiz & results
-│   ├── adopt/              # Adoption request page
-│   ├── dashboard/          # User dashboard
-│   ├── explore/            # Explore pets (search/filter)
-│   ├── login/              # Authentication
+├── app/                        # Next.js App Router pages
+│   ├── about/                  # About the platform
+│   ├── adopt/                  # Adoption request / checkout flow
+│   ├── ai-match/               # AI quiz & ranked results
+│   ├── contact/                # Contact form
+│   ├── dashboard/              # User profile & stats
+│   ├── explore/
+│   │   ├── page.tsx            # Search / filter / sort pets
+│   │   └── [id]/               # Pet detail page
+│   ├── faq/                    # Frequently asked questions
+│   ├── help/                   # Help centre
+│   ├── login/                  # Email + Google OAuth login
 │   ├── pets/
-│   │   ├── [id]/           # Pet details page
-│   │   ├── add/            # Add new pet
-│   │   └── manage/         # Manage own pets
-│   ├── register/           # Account creation
-│   ├── layout.js           # Root layout (injects AIChatWidget)
-│   └── providers.jsx       # React Query + AuthProvider + ChatProvider
+│   │   ├── add/                # Protected — add a pet listing
+│   │   └── manage/             # Protected — manage your listings
+│   ├── privacy/                # Privacy policy
+│   ├── register/               # Account creation
+│   ├── terms/                  # Terms of service
+│   ├── layout.tsx              # Root layout (injects AIChatWidget)
+│   ├── providers.tsx           # QueryClient + AuthProvider + ChatProvider
+│   └── globals.css             # Global styles
 ├── components/
-│   ├── AIChatWidget.jsx    # Floating Paws AI chat widget
-│   ├── Footer.jsx
-│   ├── Navbar.jsx
-│   ├── PetCard.jsx         # Reusable pet card (+ AI reason blurb)
-│   └── ProtectedRoute.jsx  # Auth guard component
+│   ├── AIChatWidget.tsx        # Floating Paws AI chat widget (SSE)
+│   ├── AdoptionStats.tsx       # Stats section for home page
+│   ├── Categories.tsx          # Pet category cards
+│   ├── FeaturedPets.tsx        # Featured pets section
+│   ├── Footer.tsx              # Site footer
+│   ├── Hero.tsx                # Home page hero
+│   ├── HowItWorks.tsx          # How-it-works section
+│   ├── LoadingSpinner.tsx      # Shared loading spinner
+│   ├── Navbar.tsx              # Responsive navigation
+│   ├── Newsletter.tsx          # Newsletter sign-up
+│   ├── PetCard.tsx             # Reusable pet card
+│   ├── ProtectedRoute.tsx      # Auth guard HOC
+│   ├── Testimonials.tsx        # Testimonials section
+│   └── WhyAIMatching.tsx       # AI matching explainer section
 └── context/
-    ├── AuthContext.jsx     # User authentication state
-    └── ChatContext.jsx     # Global chat state + SSE streaming
+    ├── AuthContext.tsx         # JWT auth state + Google OAuth
+    └── ChatContext.tsx         # Global chat state + SSE streaming
 ```
 
 ---
 
 ## 🔐 Authentication
 
-Authentication is currently **mocked** on the frontend. The `AuthContext` simulates a real API call with a delay and stores a mock JWT in `localStorage`.
+Authentication is handled by `AuthContext` which communicates with the backend REST API.
 
-**Demo credentials** (via "Try Demo Account" button):
-- Email: `demo@pawmatch.ai`
-- Password: `pawmatch2026`
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| Email/Password | `POST /api/auth/login` | Standard login |
+| Registration | `POST /api/auth/register` | New account |
+| Google OAuth | `POST /api/auth/google` | Google access token exchange |
 
-To use real auth, wire up the login/register `AuthContext` methods to your backend endpoints.
+The authenticated user object (including JWT) is persisted to `localStorage` under the key `pawmatch_user`.
 
 ---
 
 ## 🤖 AI Features
 
 ### AI Smart Matching (`/ai-match`)
-Takes users through a 4-step lifestyle quiz and POSTs answers to `POST /api/ai/recommend`. Results display pet cards with an AI-generated "why this match" explanation blurb.
+
+Takes users through a multi-step lifestyle quiz and POSTs answers to `POST /api/ai/recommend`. Results display pet cards with an AI-generated "why this match" explanation.
 
 ### Paws Chat Widget
-A floating bottom-right SSE-streamed chat assistant powered by `POST /api/ai/chat`. Persists across page navigation via `ChatContext`. Clicking "Ask Paws about this pet" on any pet page injects that pet's context.
+
+A floating bottom-right SSE-streamed chat assistant powered by `POST /api/ai/chat`. Persists across page navigation via `ChatContext`. Clicking "Ask Paws about this pet" on a pet detail page injects that pet's context.
 
 ---
 
@@ -152,9 +182,25 @@ A floating bottom-right SSE-streamed chat assistant powered by `POST /api/ai/cha
 
 ## 🌐 Environment Variables
 
-See [`.env.example`](.env.example) for all available options.
+Copy `.env.example` to `.env.local` and fill in the values.
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `NEXT_PUBLIC_API_URL` | Yes | Backend API base URL |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Optional | Google OAuth client ID |
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `NEXT_PUBLIC_API_URL` | ✅ Yes | — | Backend API base URL (no trailing slash) |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Optional | — | Google OAuth client ID for Google sign-in |
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is for educational purposes as part of a Programming Hero assignment.
