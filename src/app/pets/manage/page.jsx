@@ -245,7 +245,7 @@ export default function ManagePetsPage() {
                           <div className="flex items-center gap-4">
                             <img
                               src={
-                                pet.imageUrl ||
+                                pet.image ||
                                 "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=200"
                               }
                               alt={pet.name}
@@ -306,7 +306,7 @@ export default function ManagePetsPage() {
                       <div className="flex items-center gap-4">
                         <img
                           src={
-                            pet.imageUrl ||
+                            pet.image ||
                             "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=200"
                           }
                           alt={pet.name}

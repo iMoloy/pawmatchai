@@ -26,7 +26,7 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }: PetCardPro
   return (
     <div className={`group bg-white rounded-2xl overflow-hidden border border-slate-200/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col h-full ${aiReason ? 'ring-2 ring-teal-500/30' : ''}`}>
       {/* Image with zoom on hover */}
-      <div className="aspect-[4/3] bg-slate-100 relative overflow-hidden">
+      <div className="aspect-4/3 bg-slate-100 relative overflow-hidden">
         {pet.image ? (
           <Image
             src={pet.image}
@@ -104,7 +104,7 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }: PetCardPro
 
         {/* AI Reason Blurb */}
         {aiReason && (
-          <div className="mt-4 mb-2 p-4 rounded-xl bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-100/50">
+          <div className="mt-4 mb-2 p-4 rounded-xl bg-linear-to-r from-teal-50 to-emerald-50 border border-teal-100/50">
             <div className="flex items-start gap-3">
               <span className="text-teal-600 text-lg">✨</span>
               <p className="text-sm text-slate-700 italic leading-relaxed flex-1">
