@@ -6,6 +6,7 @@ import axios from "axios";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PetCard from "@/components/PetCard";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function ExplorePage() {
   const [search, setSearch] = useState("");
@@ -217,22 +218,9 @@ export default function ExplorePage() {
           </div>
         </section>
 
-        {/* Loading Skeletons */}
+        {/* Loading Spinner */}
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(8)].map((_, index) => (
-              <div key={index} className="bg-white rounded-2xl overflow-hidden border border-slate-200/60 p-4 space-y-4 animate-pulse">
-                <div className="aspect-[4/3] bg-slate-200 rounded-xl"></div>
-                <div className="h-4 bg-slate-200 rounded w-1/3"></div>
-                <div className="h-6 bg-slate-200 rounded w-3/4"></div>
-                <div className="h-4 bg-slate-200 rounded w-1/2"></div>
-                <div className="flex justify-between items-center pt-2">
-                  <div className="h-6 bg-slate-200 rounded w-1/4"></div>
-                  <div className="h-8 bg-slate-200 rounded w-1/3"></div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <LoadingSpinner message="Searching for pets..." />
         ) : isError ? (
           <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-md mx-auto">
             <svg className="w-12 h-12 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

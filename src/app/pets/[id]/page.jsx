@@ -7,6 +7,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PetCard from "@/components/PetCard";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import { useChat } from "@/context/ChatContext";
 
 export default function PetDetailsPage({ params }) {
@@ -78,14 +79,10 @@ export default function PetDetailsPage({ params }) {
 
   if (isPetLoading) {
     return (
-      <div className="flex flex-col min-h-screen bg-slate-50/50 animate-pulse">
+      <div className="flex flex-col min-h-screen bg-slate-50/50">
         <Navbar />
-        <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-8">
-          <div className="h-6 bg-slate-200 rounded w-24"></div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-8 bg-white rounded-3xl p-6 border border-slate-200/60 h-[450px]"></div>
-            <div className="lg:col-span-4 bg-white rounded-3xl p-6 border border-slate-200/60 h-[250px]"></div>
-          </div>
+        <main className="flex-1 flex items-center justify-center">
+          <LoadingSpinner message="Fetching pet details..." />
         </main>
         <Footer />
       </div>

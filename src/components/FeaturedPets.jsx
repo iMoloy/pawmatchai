@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import PetCard from "./PetCard";
+import LoadingSpinner from "./LoadingSpinner";
 
 // Mock data to fall back on if backend is unreachable
 const fallbackPets = [
@@ -39,19 +40,7 @@ export default function FeaturedPets() {
         </div>
 
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {/* Loading Skeletons */}
-            {[...Array(8)].map((_, i) => (
-              <div key={i} className="animate-pulse bg-white rounded-2xl shadow-sm h-[400px]">
-                <div className="bg-slate-200 h-56 rounded-t-2xl"></div>
-                <div className="p-5 space-y-4">
-                  <div className="h-6 bg-slate-200 rounded w-1/2"></div>
-                  <div className="h-4 bg-slate-200 rounded w-3/4"></div>
-                  <div className="h-10 bg-slate-200 rounded mt-4"></div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <LoadingSpinner message="Fetching featured pets..." />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {pets.map((pet) => (
