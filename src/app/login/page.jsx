@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
@@ -8,7 +8,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export default function LoginPage() {
+// Inner component that uses useSearchParams (must be wrapped in Suspense)
+function LoginForm() {
   const { login, loginWithGoogle, user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -29,7 +30,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
     setError("");
-    
+
     if (!email || !password) {
       setError("Please fill in both email and password.");
       return;
@@ -49,7 +50,6 @@ export default function LoginPage() {
   const handleDemoLogin = () => {
     setEmail("demo@pawmatch.ai");
     setPassword("pawmatch2026");
-    // We defer submission slightly so state updates first
     setTimeout(() => {
       document.getElementById("login-form").requestSubmit();
     }, 100);
@@ -59,7 +59,7 @@ export default function LoginPage() {
     onSuccess: async (tokenResponse) => {
       setIsLoading(true);
       setError("");
-      
+
       const result = await loginWithGoogle(tokenResponse.access_token);
       setIsLoading(false);
 
@@ -71,16 +71,16 @@ export default function LoginPage() {
     },
     onError: () => {
       setError("Google Login failed. Please try again.");
-    }
+    },
   });
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
       <Navbar />
-      
+
       <main className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6">
         <div className="w-full max-w-md bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
-          
+
           <div className="p-8">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-black text-slate-800 tracking-tight">Welcome Back</h1>
@@ -125,7 +125,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-850 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+                className="w-full py-3.5 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-800 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-2"
               >
                 {isLoading ? "Signing in..." : "Sign In"}
               </button>
@@ -165,7 +165,7 @@ export default function LoginPage() {
 
           <div className="bg-slate-50 px-8 py-5 text-center border-t border-slate-100">
             <p className="text-sm text-slate-500">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{" "}
               <Link href={`/register?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="font-bold text-teal-700 hover:text-teal-900 transition-colors">
                 Sign up here
               </Link>
@@ -177,5 +177,22 @@ export default function LoginPage() {
 
       <Footer />
     </div>
+  );
+}
+
+// Outer page component wraps inner in Suspense to satisfy Next.js prerender requirements
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col min-h-screen bg-slate-50">
+        <Navbar />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
+        </main>
+        <Footer />
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }

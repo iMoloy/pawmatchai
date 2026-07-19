@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
@@ -8,7 +8,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export default function RegisterPage() {
+// Inner component that uses useSearchParams (must be wrapped in Suspense)
+function RegisterForm() {
   const { register, loginWithGoogle, user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -18,7 +19,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +33,7 @@ export default function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    
+
     if (!name || !email || !password || !confirmPassword) {
       setError("Please fill in all fields.");
       return;
@@ -63,7 +64,7 @@ export default function RegisterPage() {
     onSuccess: async (tokenResponse) => {
       setIsLoading(true);
       setError("");
-      
+
       const result = await loginWithGoogle(tokenResponse.access_token);
       setIsLoading(false);
 
@@ -75,16 +76,16 @@ export default function RegisterPage() {
     },
     onError: () => {
       setError("Google sign up failed. Please try again.");
-    }
+    },
   });
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
       <Navbar />
-      
+
       <main className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6">
         <div className="w-full max-w-md bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
-          
+
           <div className="p-8">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-black text-slate-800 tracking-tight">Create Account</h1>
@@ -101,7 +102,7 @@ export default function RegisterPage() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              
+
               <div className="space-y-1">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Full Name</label>
                 <input
@@ -135,7 +136,7 @@ export default function RegisterPage() {
                     placeholder="••••••••"
                   />
                 </div>
-                
+
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Confirm</label>
                   <input
@@ -151,7 +152,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-850 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                className="w-full py-3.5 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-800 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-4"
               >
                 {isLoading ? "Creating Account..." : "Create Account"}
               </button>
@@ -174,12 +175,12 @@ export default function RegisterPage() {
               </svg>
               Sign up with Google
             </button>
-            
+
           </div>
 
           <div className="bg-slate-50 px-8 py-5 text-center border-t border-slate-100">
             <p className="text-sm text-slate-500">
-              Already have an account?{' '}
+              Already have an account?{" "}
               <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="font-bold text-teal-700 hover:text-teal-900 transition-colors">
                 Sign in here
               </Link>
@@ -191,5 +192,22 @@ export default function RegisterPage() {
 
       <Footer />
     </div>
+  );
+}
+
+// Outer page component wraps inner in Suspense to satisfy Next.js prerender requirements
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col min-h-screen bg-slate-50">
+        <Navbar />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
+        </main>
+        <Footer />
+      </div>
+    }>
+      <RegisterForm />
+    </Suspense>
   );
 }
