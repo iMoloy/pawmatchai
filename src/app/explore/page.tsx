@@ -7,8 +7,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PetCard from "@/components/PetCard";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import ShelterMapLocator from "@/components/ShelterMapLocator";
 
 export default function ExplorePage() {
+  const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
   const [search, setSearch] = useState("");
   const [species, setSpecies] = useState("");
   const [ageRange, setAgeRange] = useState("");
@@ -75,19 +77,50 @@ export default function ExplorePage() {
               <circle cx="50" cy="50" r="40" />
             </svg>
           </div>
-          <div className="relative z-10 max-w-2xl">
-            <span className="bg-teal-500/30 text-teal-100 border border-teal-400/20 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-              Find Your Friend
-            </span>
-            <h1 className="text-4xl md:text-5xl font-black mt-4 tracking-tight leading-tight">
-              Explore Our Adorable Pets
-            </h1>
-            <p className="text-teal-100 text-lg mt-3 font-medium">
-              Every pet deserves a loving home. Filter by species, age, and size
-              to meet your perfect match.
-            </p>
+          <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+            <div className="max-w-2xl">
+              <span className="bg-teal-500/30 text-teal-100 border border-teal-400/20 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                Find Your Friend
+              </span>
+              <h1 className="text-4xl md:text-5xl font-black mt-4 tracking-tight leading-tight">
+                Explore Our Adorable Pets
+              </h1>
+              <p className="text-teal-100 text-lg mt-3 font-medium">
+                Every pet deserves a loving home. Filter by species, age, and size
+                to meet your perfect match.
+              </p>
+            </div>
+
+            <div className="bg-white/20 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 flex items-center gap-1.5 shrink-0">
+              <button
+                onClick={() => setViewMode("grid")}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  viewMode === "grid"
+                    ? "bg-white text-teal-900 shadow-md"
+                    : "text-white hover:bg-white/10"
+                }`}
+              >
+                📋 Pet Listings Grid
+              </button>
+              <button
+                onClick={() => setViewMode("map")}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  viewMode === "map"
+                    ? "bg-teal-400 text-slate-950 shadow-md font-black"
+                    : "text-white hover:bg-white/10"
+                }`}
+              >
+                📍 GPS Shelter Map
+              </button>
+            </div>
           </div>
         </div>
+
+        {viewMode === "map" ? (
+          <div className="mb-12">
+            <ShelterMapLocator />
+          </div>
+        ) : null}
 
         {/* Filters and Search Bar Container */}
         <section className="bg-white rounded-2xl border border-slate-200/60 p-6 md:p-8 shadow-sm mb-10">
