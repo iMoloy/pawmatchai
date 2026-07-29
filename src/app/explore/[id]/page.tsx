@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PetCard from "@/components/PetCard";
+import PetBudgetEstimator from "@/components/PetBudgetEstimator";
 import { placeholderPets } from "@/data/pets";
 
 export default function PetDetailsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -308,6 +309,13 @@ export default function PetDetailsPage({ params }: { params: Promise<{ id: strin
                   </button>
                 </form>
               </div>
+
+              {/* Monthly Pet Care Budget Estimator */}
+              <PetBudgetEstimator
+                species={pet.species}
+                size={pet.size}
+                weight={pet.weight}
+              />
 
             </div>
 
