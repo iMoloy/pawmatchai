@@ -5,6 +5,7 @@ import axios from "axios";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PetCard from "@/components/PetCard";
+import AISwipeDeck from "@/components/AISwipeDeck";
 
 // The quiz steps definition
 const QUIZ_STEPS = [
@@ -61,6 +62,7 @@ export default function AIMatchPage() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isScanning, setIsScanning] = useState(false);
   const [results, setResults] = useState<any[] | null>(null);
+  const [viewMode, setViewMode] = useState<"grid" | "swipe">("grid");
 
   // Local refine filters for results page
   const [filters, setFilters] = useState({ species: "All", size: "All" });
@@ -171,81 +173,111 @@ export default function AIMatchPage() {
               </p>
             </div>
 
-            <button
-              onClick={resetQuiz}
-              className="text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors underline"
-            >
-              Retake Quiz
-            </button>
+            <div className="flex items-center gap-3">
+              <div className="bg-slate-200 p-1 rounded-xl flex items-center gap-1">
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    viewMode === "grid"
+                      ? "bg-white text-slate-800 shadow-sm"
+                      : "text-slate-600 hover:text-slate-800"
+                  }`}
+                >
+                  📋 Grid View
+                </button>
+                <button
+                  onClick={() => setViewMode("swipe")}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    viewMode === "swipe"
+                      ? "bg-teal-600 text-white shadow-sm"
+                      : "text-slate-600 hover:text-slate-800"
+                  }`}
+                >
+                  🔥 Swipe Deck
+                </button>
+              </div>
+
+              <button
+                onClick={resetQuiz}
+                className="text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors underline"
+              >
+                Retake Quiz
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Local Filters Panel */}
-            <div className="w-full lg:w-64 shrink-0">
-              <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 sticky top-6">
-                <h3 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
-                  <svg
-                    className="w-5 h-5 text-teal-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                    />
-                  </svg>
-                  Refine Results
-                </h3>
+          {viewMode === "swipe" ? (
+            <div className="py-6">
+              <AISwipeDeck pets={filteredResults} />
+            </div>
+          ) : (
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Local Filters Panel */}
+              <div className="w-full lg:w-64 shrink-0">
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 sticky top-6">
+                  <h3 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <svg
+                      className="w-5 h-5 text-teal-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                      />
+                    </svg>
+                    Refine Results
+                  </h3>
 
-                <div className="space-y-5">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                      Species
-                    </label>
-                    <select
-                      value={filters.species}
-                      onChange={(e) =>
-                        setFilters((prev) => ({
-                          ...prev,
-                          species: e.target.value,
-                        }))
-                      }
-                      className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500 outline-none"
-                    >
-                      <option value="All">All Species</option>
-                      <option value="Dog">Dogs</option>
-                      <option value="Cat">Cats</option>
-                    </select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                      Size
-                    </label>
-                    <select
-                      value={filters.size}
-                      onChange={(e) =>
-                        setFilters((prev) => ({
-                          ...prev,
-                          size: e.target.value,
-                        }))
-                      }
-                      className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500 outline-none"
-                    >
-                      <option value="All">Any Size</option>
-                      <option value="Small">Small</option>
-                      <option value="Medium">Medium</option>
-                      <option value="Large">Large</option>
-                    </select>
+                  <div className="space-y-5">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Species
+                      </label>
+                      <select
+                        value={filters.species}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            species: e.target.value,
+                          }))
+                        }
+                        className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500 outline-none"
+                      >
+                        <option value="All">All Species</option>
+                        <option value="Dog">Dogs</option>
+                        <option value="Cat">Cats</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Size
+                      </label>
+                      <select
+                        value={filters.size}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            size: e.target.value,
+                          }))
+                        }
+                        className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500 outline-none"
+                      >
+                        <option value="All">Any Size</option>
+                        <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Results Grid */}
-            <div className="flex-1">
+              {/* Results Grid */}
+              <div className="flex-1">
               {filteredResults.length === 0 ? (
                 <div className="text-center py-20 bg-white rounded-3xl border border-slate-100 border-dashed">
                   <p className="text-slate-500">
@@ -286,6 +318,7 @@ export default function AIMatchPage() {
               )}
             </div>
           </div>
+          )}
         </main>
         <Footer />
       </div>
