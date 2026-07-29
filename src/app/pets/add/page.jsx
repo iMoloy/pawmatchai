@@ -29,7 +29,55 @@ export default function AddPetPage() {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+
+  const handleAIAnalyze = async () => {
+    const targetUrl =
+      formData.imageUrl.trim() ||
+      "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=800";
+
+    setIsAnalyzing(true);
+    try {
+      const apiBaseUrl =
+        process.env.NEXT_PUBLIC_API_URL ||
+        "https://pawmatchai-server.onrender.com";
+
+      const res = await axios.post(`${apiBaseUrl}/api/ai/analyze-image`, {
+        imageUrl: targetUrl,
+      });
+
+      if (res.data?.success && res.data?.analysis) {
+        const a = res.data.analysis;
+        setFormData((prev) => ({
+          ...prev,
+          name: a.name || prev.name,
+          species: a.species || prev.species,
+          breed: a.breed || prev.breed,
+          age: a.age || prev.age,
+          size: a.size
+            ? a.size.charAt(0).toUpperCase() + a.size.slice(1)
+            : prev.size,
+          weight: a.weight || prev.weight,
+          gender: a.sex || prev.gender,
+          shortDescription:
+            a.description?.slice(0, 95) || prev.shortDescription,
+          fullDescription: a.description || prev.fullDescription,
+          imageUrl: prev.imageUrl || targetUrl,
+        }));
+        setToastMessage("✨ AI analyzed the photo & filled the fields!");
+        setTimeout(() => setToastMessage(""), 3000);
+      }
+    } catch (err) {
+      console.error("AI Analysis failed:", err);
+      setErrors((prev) => ({
+        ...prev,
+        submit: "AI image analysis failed. Please fill fields manually.",
+      }));
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -352,20 +400,47 @@ export default function AddPetPage() {
                       )}
                     </div>
 
-                    <div className="space-y-1 sm:col-span-2">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
-                        Image URL (Optional)
-                      </label>
+                    <div className="space-y-2 sm:col-span-2 bg-gradient-to-r from-teal-50 to-indigo-50 p-4 rounded-2xl border border-teal-100/80">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 uppercase tracking-wider">
+                            ✨ AI Vision Auto-Fill
+                          </span>
+                          <p className="text-xs text-slate-600 mt-0.5">
+                            Paste an image URL below and click analyze to auto-detect breed, age, size, weight & traits!
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleAIAnalyze}
+                          disabled={isAnalyzing}
+                          className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-50 shrink-0"
+                        >
+                          {isAnalyzing ? (
+                            <>
+                              <svg className="animate-spin h-3.5 w-3.5 text-white" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                              </svg>
+                              Analyzing Image...
+                            </>
+                          ) : (
+                            <>
+                              <span>✨ Auto-Fill with AI</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
                       <input
                         type="url"
                         name="imageUrl"
                         value={formData.imageUrl}
                         onChange={handleChange}
-                        placeholder="https://example.com/image.jpg"
-                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                        placeholder="https://example.com/pet-image.jpg"
+                        className="w-full px-4 py-3 bg-white border border-teal-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all text-sm shadow-inner"
                       />
-                      <p className="text-xs text-slate-400 mt-1">
-                        Leave blank to use a default placeholder image.
+                      <p className="text-xs text-slate-400">
+                        Leave blank to use a default pet image.
                       </p>
                     </div>
 

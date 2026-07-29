@@ -39,7 +39,7 @@ export default function AboutPage() {
       <main className="flex-1">
 
         {/* Hero */}
-        <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-slate-900 text-white py-24 px-4">
+        <section className="bg-linear-to-br from-teal-900 via-teal-800 to-slate-900 text-white py-24 px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-sm font-semibold text-teal-200 mb-6 border border-white/10">
               🐾 Our Mission
@@ -130,7 +130,7 @@ export default function AboutPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-20 px-4 bg-gradient-to-r from-teal-600 to-teal-700 text-white">
+        <section className="py-20 px-4 bg-linear-to-r from-teal-600 to-teal-700 text-white">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-4xl font-black mb-4">Ready to find your perfect pet?</h2>
             <p className="text-teal-100 mb-8 text-lg">Take our 2-minute lifestyle quiz and let our AI find your best matches.</p>

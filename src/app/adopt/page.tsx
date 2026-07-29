@@ -245,7 +245,7 @@ export default function AdoptionRequestPage() {
 
               {/* Pet Card */}
               <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-                <div className="relative aspect-[4/3]">
+                <div className="relative aspect-4/3">
                   <img src={samplePet.imageUrl} alt={samplePet.name} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
                   <div className="absolute bottom-4 left-4">
