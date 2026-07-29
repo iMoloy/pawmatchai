@@ -3,41 +3,41 @@ import React from "react";
 const steps = [
   {
     id: 1,
-    title: 'Browse Pets',
-    description: 'Explore thousands of pets available for adoption near you',
+    title: "Browse Pets",
+    description: "Explore hundreds of verified pets available for adoption near you",
     icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0l-4 4m4-4l-4-4M5 11V7a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V7" />
+      <svg className="w-10 h-10 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     ),
   },
   {
     id: 2,
-    title: 'Get AI Matches',
-    description: 'Our AI analyzes your preferences to find your perfect match',
+    title: "Get AI Matches",
+    description: "Our neural matching engine analyzes your lifestyle to recommend compatible pets",
     icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m0 16v1m-6-8h2m2 0h2m-2 0v-2m2 0v2m7.614-5.614l-1.414 1.414M6 19.29l1.414-1.414M16.95 7.05a8.025 8.025 0 1111.314 0 8.025 8.025 0 01-11.314 0z" />
+      <svg className="w-10 h-10 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
   },
   {
     id: 3,
-    title: 'Chat with Paws',
-    description: 'Connect directly with pet owners and rescue organizations',
+    title: "Chat with Paws",
+    description: "Ask questions, get instant advice, and interact with our AI adoption assistant",
     icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.41-4.03 8-9 8a9.863 9.863 0 01-4.255-.94L3 20l1.679-3.01a9.863 9.863 0 01-.94-4.256C7.97 7.03 12 3 17 3c4.97 0 9 3.59 9 7.99" />
+      <svg className="w-10 h-10 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
       </svg>
     ),
   },
   {
     id: 4,
-    title: 'Meet Your Pet',
-    description: 'Schedule a meet and greet to find your forever friend',
+    title: "Meet & Adopt",
+    description: "Submit your request online and schedule a meet-and-greet with shelter hosts",
     icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s8-4 8-10V5l-8 3-8-3v7c0 6 8 10 8 10z" />
+      <svg className="w-10 h-10 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
       </svg>
     ),
   },
@@ -48,10 +48,10 @@ export default function HowItWorks() {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">
             How It Works
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
             Finding your perfect pet companion has never been easier
           </p>
         </div>
@@ -60,13 +60,13 @@ export default function HowItWorks() {
           {steps.map((step) => (
             <div
               key={step.id}
-              className="bg-white rounded-2xl p-8 text-center border border-slate-200 shadow-sm hover:shadow-md transition-shadow"
+              className="bg-white rounded-3xl p-8 text-center border border-slate-100 shadow-sm hover:shadow-lg hover:border-teal-200 transition-all duration-300 relative"
             >
-              <div className="w-20 h-20 mx-auto mb-6 bg-teal-100 rounded-full flex items-center justify-center text-teal-700">
+              <div className="w-20 h-20 mx-auto mb-6 bg-teal-50 rounded-2xl flex items-center justify-center shadow-inner">
                 {step.icon}
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">{step.title}</h3>
-              <p className="text-slate-600">{step.description}</p>
+              <h3 className="text-xl font-bold text-slate-800 mb-2">{step.title}</h3>
+              <p className="text-xs text-slate-500 leading-relaxed">{step.description}</p>
             </div>
           ))}
         </div>

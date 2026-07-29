@@ -3,47 +3,52 @@ import React from "react";
 const categories = [
   {
     id: 1,
-    title: 'Dogs',
-    description: 'Man\'s best friend',
-    count: '240+',
+    title: "Dogs",
+    description: "Loyal & energetic companions",
+    count: "240+",
     icon: (
-      <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M4 4.5C2.895 4.5 2 5.395 2 6.5v11c0 1.105.895 2 2 2h12c1.105 0 2-.895 2-2v-5.5c0-.276-.224-.5-.5-.5H17V6.5c0-1.105-.895-2-2-2H4zm0 2h11v8.5c0 .276.224.5.5.5H17v4.5c0 .276-.224.5-.5.5H4c-.276 0-.5-.224-.5-.5v-11c0-.276.224-.5.5-.5zm15 4.5V6.5c0-.276.224-.5.5-.5h1c.276 0 .5.224.5.5v2.5c0 .276-.224.5-.5.5h-1c-.276 0-.5-.224-.5-.5z" />
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 10h.01M15 10h.01M9.5 15a3.5 3.5 0 005 0" />
       </svg>
     ),
+    emoji: "🐶",
   },
   {
     id: 2,
-    title: 'Cats',
-    description: 'Independent companions',
-    count: '180+',
+    title: "Cats",
+    description: "Independent & loving companions",
+    count: "180+",
     icon: (
-      <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2C9.238 2 7 4.238 7 7c0 1.657.673 3.157 1.75 4.187C6.373 12.517 4 14.646 4 18v2c0 1.105.895 2 2 2h12c1.105 0 2-.895 2-2v-2c0-3.354-2.373-5.483-5.75-5.813C16.327 10.157 17 8.657 17 7c0-2.762-2.238-5-5-5z" />
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m-15 0l15 15" />
       </svg>
     ),
+    emoji: "🐱",
   },
   {
     id: 3,
-    title: 'Small Pets',
-    description: 'Little bundles of joy',
-    count: '95+',
+    title: "Small Pets",
+    description: "Little bundles of pure joy",
+    count: "95+",
     icon: (
-      <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.55 7 13 7 13s7-7.45 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" />
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
+    emoji: "🐰",
   },
   {
     id: 4,
-    title: 'Others',
-    description: 'Special companions',
-    count: '65+',
+    title: "Others",
+    description: "Special rescue companions",
+    count: "65+",
     icon: (
-      <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.9c-3.91-.5-7-3.78-7-7.9 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.9zm6.79-1.79c.13-.58.21-1.17.21-1.79 0-4.12-3.09-7.4-7-7.9v1.9c0 .55.45 1 1 1h4.59l5-5H17V5h4c1.1 0 2 .9 2 2v4h-2V7.59l-5 5z" />
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
       </svg>
     ),
+    emoji: "🐾",
   },
 ];
 
@@ -64,15 +69,17 @@ export default function Categories() {
           {categories.map((category) => (
             <a
               key={category.id}
-              href={`/explore?category=${category.title.toLowerCase()}`}
-              className="group bg-white rounded-2xl p-8 text-center border border-slate-200 shadow-sm hover:shadow-md hover:border-teal-300 transition-all"
+              href={`/explore?species=${category.title === "Others" || category.title === "Small Pets" ? "" : category.title}`}
+              className="group bg-white rounded-3xl p-8 text-center border border-slate-100 shadow-sm hover:shadow-xl hover:border-teal-200 hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="w-20 h-20 mx-auto mb-4 bg-teal-100 rounded-xl flex items-center justify-center text-teal-700 group-hover:bg-teal-200 transition-colors">
-                {category.icon}
+              <div className="w-20 h-20 mx-auto mb-4 bg-teal-50 rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform shadow-inner">
+                {category.emoji}
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">{category.title}</h3>
-              <p className="text-slate-600 mb-2">{category.description}</p>
-              <span className="text-teal-700 font-medium">{category.count} pets</span>
+              <h3 className="text-xl font-bold text-slate-800 mb-1">{category.title}</h3>
+              <p className="text-xs text-slate-500 mb-3">{category.description}</p>
+              <span className="inline-block px-3 py-1 bg-teal-100/80 text-teal-800 font-bold text-xs rounded-full">
+                {category.count} pets
+              </span>
             </a>
           ))}
         </div>
