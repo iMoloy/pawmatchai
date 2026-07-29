@@ -145,6 +145,52 @@ export default function DashboardPage() {
             {/* Right Column: AI Matches & Chat Preview */}
             <div className="lg:col-span-8 space-y-8">
               
+              {/* Adoption Applications Tracker */}
+              <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <span className="text-xl">📋</span>
+                    Adoption Application Tracker
+                  </h2>
+                  <Link href="/adopt" className="text-xs font-bold text-teal-600 hover:underline">
+                    + New Request
+                  </Link>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="p-5 bg-gradient-to-r from-teal-50/60 to-slate-50 border border-teal-100 rounded-2xl">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                      <div>
+                        <h4 className="font-bold text-slate-800 text-base">Luna (Golden Retriever)</h4>
+                        <p className="text-xs text-slate-500">Submitted on July 29, 2026 • App ID: #PM-8921</p>
+                      </div>
+                      <span className="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-black rounded-full uppercase tracking-wider">
+                        ⏳ Under Review
+                      </span>
+                    </div>
+
+                    {/* Timeline Tracker */}
+                    <div className="relative flex items-center justify-between pt-2 px-2">
+                      <div className="absolute top-1/2 left-8 right-8 h-1 bg-slate-200 -translate-y-1/2 z-0"></div>
+                      <div className="absolute top-1/2 left-8 w-1/2 h-1 bg-teal-500 -translate-y-1/2 z-0"></div>
+
+                      <div className="relative z-10 text-center">
+                        <div className="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center text-xs font-bold mx-auto shadow-md">✓</div>
+                        <span className="text-[10px] font-bold text-slate-700 mt-1 block">Submitted</span>
+                      </div>
+                      <div className="relative z-10 text-center">
+                        <div className="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-bold mx-auto shadow-md animate-pulse">⏳</div>
+                        <span className="text-[10px] font-bold text-amber-700 mt-1 block">Under Review</span>
+                      </div>
+                      <div className="relative z-10 text-center">
+                        <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center text-xs font-bold mx-auto">🏠</div>
+                        <span className="text-[10px] font-bold text-slate-400 mt-1 block">Approved</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* AI Matches Section */}
               <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
                 <div className="flex items-center justify-between mb-6">
