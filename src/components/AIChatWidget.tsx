@@ -98,28 +98,33 @@ export default function AIChatWidget() {
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
-          {messages.map((msg, idx) => (
-            <div key={idx} className={`flex items-end gap-2 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
-              {msg.role === "assistant" && (
-                <div className="w-7 h-7 rounded-full bg-teal-600 flex items-center justify-center text-sm shrink-0">🐾</div>
-              )}
-              <div
-                className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${
-                  msg.role === "user"
-                    ? "bg-teal-600 text-white rounded-br-none"
-                    : "bg-white text-slate-700 border border-slate-100 rounded-bl-none"
-                }`}
-              >
-                {msg.content}
-                {msg.streaming && (
-                  <span className="inline-block w-1 h-4 bg-teal-500 ml-1 animate-pulse rounded-full" />
-                )}
-              </div>
-            </div>
-          ))}
+          {messages.map((msg, idx) => {
+            // Hide empty assistant message bubble to prevent double indicator with TypingIndicator
+            if (msg.role === "assistant" && !msg.content) return null;
 
-          {/* Typing indicator: only show when streaming starts but no content yet */}
-          {isStreaming && messages[messages.length - 1]?.content === "" && (
+            return (
+              <div key={idx} className={`flex items-end gap-2 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
+                {msg.role === "assistant" && (
+                  <div className="w-7 h-7 rounded-full bg-teal-600 flex items-center justify-center text-sm shrink-0">🐾</div>
+                )}
+                <div
+                  className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${
+                    msg.role === "user"
+                      ? "bg-teal-600 text-white rounded-br-none"
+                      : "bg-white text-slate-700 border border-slate-100 rounded-bl-none"
+                  }`}
+                >
+                  {msg.content}
+                  {msg.streaming && (
+                    <span className="inline-block w-1 h-4 bg-teal-500 ml-1 animate-pulse rounded-full align-middle" />
+                  )}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Typing indicator: show bouncing dots while waiting for the first stream chunk */}
+          {isStreaming && (!messages[messages.length - 1]?.content || messages[messages.length - 1]?.content === "") && (
             <TypingIndicator />
           )}
 
