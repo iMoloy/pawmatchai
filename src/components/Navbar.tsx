@@ -9,6 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 const publicLinks = [
   { href: "/", label: "Home" },
   { href: "/explore", label: "Explore Pets" },
+  { href: "/ai-match", label: "✨ AI Matcher" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
