@@ -169,7 +169,7 @@ export default function AddPetPage() {
 
         {/* Toast Notification */}
         {toastMessage && (
-          <div className="fixed top-24 right-4 sm:right-8 bg-teal-600 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 z-50 animate-bounce">
+          <div className="fixed top-24 right-4 sm:right-8 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 z-50 animate-bounce">
             <svg
               className="w-6 h-6 text-white"
               fill="none"
@@ -414,7 +414,7 @@ export default function AddPetPage() {
                           type="button"
                           onClick={handleAIAnalyze}
                           disabled={isAnalyzing}
-                          className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-50 shrink-0"
+                          className="px-4 py-2 bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-600 hover:to-emerald-600 text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-50 shrink-0"
                         >
                           {isAnalyzing ? (
                             <>
@@ -499,7 +499,7 @@ export default function AddPetPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-8 py-3.5 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-850 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center min-w-[160px]"
+                    className="px-8 py-3.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center min-w-[160px]"
                   >
                     {isSubmitting ? (
                       <>

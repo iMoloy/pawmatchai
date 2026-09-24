@@ -55,7 +55,7 @@ export default function AIChatWidget() {
         className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 ${
           isOpen
             ? "bg-slate-700 hover:bg-slate-800 scale-90"
-            : "bg-teal-600 hover:bg-teal-700 hover:scale-110"
+            : "bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-600 hover:to-emerald-600 hover:scale-110"
         }`}
         aria-label="Open Paws AI Chat"
       >
@@ -110,7 +110,7 @@ export default function AIChatWidget() {
                 <div
                   className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${
                     msg.role === "user"
-                      ? "bg-teal-600 text-white rounded-br-none"
+                      ? "bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 rounded-br-none"
                       : "bg-white text-slate-700 border border-slate-100 rounded-bl-none"
                   }`}
                 >
@@ -160,7 +160,7 @@ export default function AIChatWidget() {
           <button
             type="submit"
             disabled={isStreaming || !input.trim()}
-            className="w-10 h-10 bg-teal-600 text-white rounded-xl flex items-center justify-center hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+            className="w-10 h-10 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 rounded-xl flex items-center justify-center hover:from-teal-600 hover:to-emerald-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

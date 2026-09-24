@@ -62,7 +62,7 @@ export default function DashboardPage() {
             </div>
             <Link 
               href="/explore" 
-              className="inline-flex items-center justify-center px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-colors shadow-sm"
+              className="inline-flex items-center justify-center px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-xl hover:from-teal-600 hover:to-emerald-600 transition-colors shadow-sm"
             >
               Continue Exploring
             </Link>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
                       <div className="absolute top-1/2 left-8 w-1/2 h-1 bg-teal-500 -translate-y-1/2 z-0"></div>
 
                       <div className="relative z-10 text-center">
-                        <div className="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center text-xs font-bold mx-auto shadow-md">✓</div>
+                        <div className="w-8 h-8 rounded-full bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 flex items-center justify-center text-xs font-bold mx-auto shadow-md">✓</div>
                         <span className="text-[10px] font-bold text-slate-700 mt-1 block">Submitted</span>
                       </div>
                       <div className="relative z-10 text-center">

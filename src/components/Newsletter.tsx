@@ -18,12 +18,12 @@ export default function Newsletter() {
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="grow px-6 py-4 rounded-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                className="grow px-6 py-4 rounded-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white text-slate-900"
                 required
               />
               <button
                 type="submit"
-                className="px-8 py-4 bg-teal-700 text-white font-medium rounded-full hover:bg-teal-800 transition-colors whitespace-nowrap"
+                className="px-8 py-4 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-medium rounded-full hover:from-teal-700 hover:to-emerald-700 transition-colors whitespace-nowrap"
               >
                 Subscribe
               </button>

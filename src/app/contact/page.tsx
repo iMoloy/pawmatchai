@@ -155,7 +155,7 @@ export default function ContactPage() {
                     <p className="text-slate-500">Thanks for reaching out! We&apos;ll get back to you within 1–2 business days.</p>
                     <button
                       onClick={() => { setIsSuccess(false); setForm({ name: "", email: "", subject: "", message: "" }); }}
-                      className="mt-6 px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-colors"
+                      className="mt-6 px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-xl hover:from-teal-600 hover:to-emerald-600 transition-colors"
                     >
                       Send Another
                     </button>
@@ -192,7 +192,7 @@ export default function ContactPage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full py-4 bg-teal-700 text-white font-bold rounded-2xl hover:bg-teal-800 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-2xl hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 flex items-center justify-center gap-2"
                       >
                         {isSubmitting ? (
                           <>

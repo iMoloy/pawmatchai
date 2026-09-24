@@ -81,7 +81,7 @@ export default function Navbar() {
                 <Link href="/login" className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-full font-medium hover:bg-slate-100 transition-colors">
                   Login
                 </Link>
-                <Link href="/register" className="px-4 py-2 text-sm bg-teal-700 text-white rounded-full font-semibold hover:bg-teal-800 transition-colors shadow-sm">
+                <Link href="/register" className="px-4 py-2 text-sm bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 rounded-full font-semibold hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-sm">
                   Register
                 </Link>
               </>
@@ -142,7 +142,7 @@ export default function Navbar() {
               <Link href="/login" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2.5 border border-slate-200 text-sm font-medium text-slate-700 rounded-xl hover:bg-slate-50">
                 Login
               </Link>
-              <Link href="/register" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2.5 bg-teal-700 text-sm font-semibold text-white rounded-xl hover:bg-teal-800">
+              <Link href="/register" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2.5 bg-linear-to-r from-teal-600 to-emerald-600 border-0 text-sm font-semibold text-white rounded-xl hover:from-teal-700 hover:to-emerald-700">
                 Register
               </Link>
             </div>

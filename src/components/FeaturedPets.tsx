@@ -68,7 +68,7 @@ export default function FeaturedPets() {
     retry: 1, // Only retry once so it falls back quickly if backend is down
   });
 
-  const pets = data?.data || fallbackPets;
+  const pets = data?.pets || fallbackPets;
 
   return (
     <section className="py-20 bg-slate-50">
@@ -95,7 +95,7 @@ export default function FeaturedPets() {
         <div className="text-center mt-12">
           <Link
             href="/explore"
-            className="inline-flex items-center px-8 py-3 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-800 transition-colors shadow-sm"
+            className="inline-flex items-center px-8 py-3 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-sm"
           >
             View All Pets →
           </Link>

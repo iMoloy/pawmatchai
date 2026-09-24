@@ -392,7 +392,7 @@ export default function ExplorePage() {
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="px-6 py-2 bg-teal-700 text-white font-semibold rounded-xl text-sm hover:bg-teal-800 transition-colors"
+                  className="px-6 py-2 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-semibold rounded-xl text-sm hover:from-teal-700 hover:to-emerald-700 transition-colors"
                 >
                   Reset Filters
                 </button>
@@ -419,7 +419,7 @@ export default function ExplorePage() {
                     onClick={() => handlePageChange(i + 1)}
                     className={`w-10 h-10 flex items-center justify-center text-sm font-bold rounded-xl transition-all ${
                       page === i + 1
-                        ? "bg-teal-700 text-white shadow-md shadow-teal-700/20"
+                        ? "bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 shadow-md shadow-teal-700/20"
                         : "bg-white text-slate-650 border border-slate-200 hover:bg-slate-50"
                     }`}
                   >

@@ -172,7 +172,7 @@ function RegisterForm() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-800 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                className="w-full py-3.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-4"
               >
                 {isLoading ? "Creating Account..." : "Create Account"}
               </button>

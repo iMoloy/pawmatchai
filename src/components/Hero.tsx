@@ -25,9 +25,9 @@ export default function Hero() {
               <input
                 type="text"
                 placeholder="Search by breed, location, or name..."
-                className="w-full px-6 py-4 pr-12 rounded-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                className="w-full px-6 py-4 pr-12 rounded-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white text-slate-900"
               />
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white bg-teal-700 rounded-full hover:bg-teal-800 transition-colors">
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white bg-linear-to-r from-teal-600 to-emerald-600 border-0 rounded-full hover:from-teal-700 hover:to-emerald-700 transition-colors">
                 <svg
                   className="w-6 h-6"
                   fill="none"
@@ -48,7 +48,7 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/ai-match"
-                className="px-8 py-4 bg-teal-700 text-white rounded-full font-semibold text-center hover:bg-teal-800 transition-colors shadow-lg hover:shadow-xl"
+                className="px-8 py-4 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 rounded-full font-semibold text-center hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-lg hover:shadow-xl"
               >
                 Find My Match with AI
               </Link>

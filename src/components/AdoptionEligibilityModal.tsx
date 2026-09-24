@@ -135,7 +135,7 @@ export default function AdoptionEligibilityModal({
               <div className="pt-2">
                 <button
                   onClick={calculateScore}
-                  className="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl transition shadow-md hover:shadow-lg"
+                  className="w-full py-3.5 bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-600 hover:to-emerald-600 text-white font-bold rounded-xl transition shadow-md hover:shadow-lg"
                 >
                   Calculate Adoption Readiness Score 🚀
                 </button>
@@ -185,7 +185,7 @@ export default function AdoptionEligibilityModal({
                 </button>
                 <button
                   onClick={onClose}
-                  className="flex-1 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl text-sm transition"
+                  className="flex-1 py-3 bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-600 hover:to-emerald-600 text-white font-bold rounded-xl text-sm transition"
                 >
                   Done
                 </button>

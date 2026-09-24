@@ -114,7 +114,7 @@ export default function PetDetailsPage({ params }: { params: Promise<{ id: strin
             </p>
             <Link
               href="/explore"
-              className="px-6 py-2.5 bg-teal-700 text-white font-semibold rounded-xl text-sm hover:bg-teal-800 transition-colors"
+              className="px-6 py-2.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-semibold rounded-xl text-sm hover:from-teal-700 hover:to-emerald-700 transition-colors"
             >
               Back to Explore
             </Link>
@@ -233,7 +233,7 @@ export default function PetDetailsPage({ params }: { params: Promise<{ id: strin
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute top-4 right-4 flex gap-2">
-                  <span className="px-3.5 py-1 text-xs font-semibold rounded-full shadow-md bg-teal-700 text-white">
+                  <span className="px-3.5 py-1 text-xs font-semibold rounded-full shadow-md bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0">
                     {pet.species}
                   </span>
                   <span
@@ -419,7 +419,7 @@ export default function PetDetailsPage({ params }: { params: Promise<{ id: strin
                 </p>
                 <button
                   onClick={() => startChatWithPet(pet)}
-                  className="w-full py-3 bg-teal-700 text-white font-bold rounded-xl hover:bg-teal-800 transition-colors shadow-sm flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-sm flex items-center justify-center gap-2"
                 >
                   <span>🐾</span> Chat with Paws about {pet.name}
                 </button>
@@ -447,7 +447,7 @@ export default function PetDetailsPage({ params }: { params: Promise<{ id: strin
 
                 <button
                   onClick={() => setIsAdoptModalOpen(true)}
-                  className="w-full py-4 bg-teal-700 text-white font-bold rounded-2xl shadow-md hover:bg-teal-850 hover:shadow-lg active:scale-[0.98] transition-all cursor-pointer text-sm tracking-wider uppercase"
+                  className="w-full py-4 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-2xl shadow-md hover:from-teal-700 hover:to-emerald-700 hover:shadow-lg active:scale-[0.98] transition-all cursor-pointer text-sm tracking-wider uppercase"
                 >
                   Adopt {pet.name} Now
                 </button>
@@ -493,7 +493,7 @@ export default function PetDetailsPage({ params }: { params: Promise<{ id: strin
         <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden border border-slate-100 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
             {/* Modal Header */}
-            <div className="bg-teal-700 text-white px-6 py-5 flex items-center justify-between">
+            <div className="bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 px-6 py-5 flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-bold">Adopt {pet.name}</h2>
                 <p className="text-teal-150 text-xs">
@@ -558,7 +558,7 @@ export default function PetDetailsPage({ params }: { params: Promise<{ id: strin
                       setApplicantEmail("");
                       setApplicantMessage("");
                     }}
-                    className="px-6 py-2.5 bg-teal-700 text-white font-semibold rounded-xl text-sm hover:bg-teal-850 transition-colors cursor-pointer"
+                    className="px-6 py-2.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-semibold rounded-xl text-sm hover:from-teal-700 hover:to-emerald-700 transition-colors cursor-pointer"
                   >
                     Close Window
                   </button>
@@ -632,7 +632,7 @@ export default function PetDetailsPage({ params }: { params: Promise<{ id: strin
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2.5 bg-teal-700 text-white font-bold rounded-xl text-sm hover:bg-teal-850 transition-colors shadow-md cursor-pointer"
+                      className="px-6 py-2.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl text-sm hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-md cursor-pointer"
                     >
                       Submit Application
                     </button>

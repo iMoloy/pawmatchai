@@ -64,7 +64,7 @@ export default function AISwipeDeck({ pets }: AISwipeDeckProps) {
 
         <button
           onClick={() => setCurrentIndex(0)}
-          className="px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all shadow-md"
+          className="px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-xl hover:from-teal-600 hover:to-emerald-600 transition-all shadow-md"
         >
           Review Deck Again
         </button>
@@ -212,7 +212,7 @@ export default function AISwipeDeck({ pets }: AISwipeDeckProps) {
           </button>
 
           <Link
-            href={`/explore/${currentPet.id}`}
+            href={`/pets/${currentPet.id}`}
             className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold rounded-xl transition-all"
           >
             View Profile
@@ -220,7 +220,7 @@ export default function AISwipeDeck({ pets }: AISwipeDeckProps) {
 
           <button
             onClick={() => handleSwipe("right")}
-            className="w-14 h-14 rounded-full bg-teal-600 text-white hover:bg-teal-700 hover:scale-110 transition-all flex items-center justify-center text-xl shadow-lg"
+            className="w-14 h-14 rounded-full bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 hover:from-teal-600 hover:to-emerald-600 hover:scale-110 transition-all flex items-center justify-center text-xl shadow-lg"
             title="Shortlist Pet"
           >
             ❤️

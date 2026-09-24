@@ -120,7 +120,7 @@ export default function AdoptionRequestPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/explore" className="px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-colors shadow-sm">
+              <Link href="/explore" className="px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-xl hover:from-teal-600 hover:to-emerald-600 transition-colors shadow-sm">
                 Browse More Pets
               </Link>
               <Link href="/dashboard" className="px-6 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
@@ -244,7 +244,7 @@ export default function AdoptionRequestPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-teal-700 text-white font-bold rounded-2xl hover:bg-teal-800 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-base"
+                className="w-full py-4 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-2xl hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-base"
               >
                 {isSubmitting ? (
                   <>

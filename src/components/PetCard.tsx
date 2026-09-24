@@ -28,12 +28,10 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }: PetCardPro
       {/* Image with zoom on hover */}
       <div className="aspect-4/3 bg-slate-100 relative overflow-hidden">
         {pet.image ? (
-          <Image
+          <img
             src={pet.image}
             alt={pet.name}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
@@ -140,7 +138,7 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }: PetCardPro
           </div>
           <Link
             href={`/pets/${pet.id}`}
-            className="px-4 py-2.5 bg-teal-700 text-white font-semibold text-sm rounded-xl hover:bg-teal-850 hover:shadow-md transition-all duration-200"
+            className="px-4 py-2.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-semibold text-sm rounded-xl hover:from-teal-700 hover:to-emerald-700 hover:shadow-md transition-all duration-200"
           >
             View Details
           </Link>

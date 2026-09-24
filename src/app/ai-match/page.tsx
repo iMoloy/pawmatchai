@@ -189,7 +189,7 @@ export default function AIMatchPage() {
                   onClick={() => setViewMode("swipe")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                     viewMode === "swipe"
-                      ? "bg-teal-600 text-white shadow-sm"
+                      ? "bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 shadow-sm"
                       : "text-slate-600 hover:text-slate-800"
                   }`}
                 >
