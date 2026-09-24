@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Navbar from "@/components/Navbar";
+import { useState, useRef } from "react";
+import axios from "axios";
 import Footer from "@/components/Footer";
 import PetCard from "@/components/PetCard";
 
@@ -42,8 +44,52 @@ const aiMatches = [
   },
 ];
 
-export default function DashboardPage() {
-  const { user, logout } = useAuth();
+export default function ProfilePage() {
+  const { user, logout, updateProfile } = useAuth();
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      
+      const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY || "3652613d968bce73fb2a2de2e9a28c21"; // Sample public key for testing
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        const displayUrl = data.data.display_url;
+        
+        try {
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+          await axios.patch(
+            `${apiUrl}/api/users/profile`, 
+            { avatar: displayUrl },
+            { headers: { Authorization: `Bearer ${user?.token}` } }
+          );
+        } catch (backendError) {
+          console.error("Backend update error:", backendError);
+        }
+
+        if(updateProfile) updateProfile({ avatar: displayUrl });
+      } else {
+        alert("Failed to upload image.");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("An error occurred during upload.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   return (
     <ProtectedRoute>
@@ -62,7 +108,7 @@ export default function DashboardPage() {
             </div>
             <Link 
               href="/explore" 
-              className="inline-flex items-center justify-center px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-xl hover:from-teal-600 hover:to-emerald-600 transition-colors shadow-sm"
+              className="inline-flex items-center justify-center px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-full hover:from-teal-600 hover:to-emerald-600 transition-colors shadow-sm"
             >
               Continue Exploring
             </Link>
@@ -75,8 +121,29 @@ export default function DashboardPage() {
               
               {/* Profile Card */}
               <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center gap-5">
-                <div className="h-16 w-16 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-inner">
-                  {user?.name?.charAt(0).toUpperCase() || "U"}
+                <div className="relative">
+                  <img 
+                    src={user?.avatar || "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=200&auto=format&fit=crop"} 
+                    alt={user?.name} 
+                    className="h-20 w-20 rounded-full object-cover shadow-sm border-2 border-white" 
+                  />
+                  
+                  <input type="file" accept="image/*" className="rounded-full hidden" ref={fileInputRef} onChange={handleImageUpload} />
+                  
+                  <button 
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploading}
+                    className="absolute bottom-0 right-0 w-7 h-7 bg-white rounded-full border border-slate-200 shadow-sm flex items-center justify-center text-slate-500 hover:text-teal-600 hover:border-teal-200 transition-colors cursor-pointer"
+                    title="Change Profile Picture"
+                  >
+                    {isUploading ? (
+                      <span className="w-3 h-3 border-2 border-teal-500 border-t-transparent rounded-full animate-spin"></span>
+                    ) : (
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                      </svg>
+                    )}
+                  </button>
                 </div>
                 <div>
                   <h2 className="text-lg font-bold text-slate-800">{user?.name}</h2>
@@ -121,19 +188,19 @@ export default function DashboardPage() {
               <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
                 <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4">Quick Actions</h3>
                 <div className="space-y-2">
-                  <Link href="/explore" className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-medium transition-colors">
+                  <Link href="/explore" className="flex items-center gap-3 p-3 rounded-full hover:bg-slate-50 text-slate-700 font-medium transition-colors">
                     <div className="bg-slate-100 p-2 rounded-lg text-slate-500"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div>
                     Explore Pets
                   </Link>
-                  <Link href="/pets/add" className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-medium transition-colors text-left">
+                  <Link href="/pets/add" className="w-full flex items-center gap-3 p-3 rounded-full hover:bg-slate-50 text-slate-700 font-medium transition-colors text-left">
                     <div className="bg-slate-100 p-2 rounded-lg text-slate-500"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg></div>
                     Add a Pet
                   </Link>
-                  <Link href="/pets/manage" className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-medium transition-colors text-left">
+                  <Link href="/pets/manage" className="w-full flex items-center gap-3 p-3 rounded-full hover:bg-slate-50 text-slate-700 font-medium transition-colors text-left">
                     <div className="bg-slate-100 p-2 rounded-lg text-slate-500"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></div>
                     Manage My Pets
                   </Link>
-                  <button onClick={logout} className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 text-red-600 font-medium transition-colors text-left">
+                  <button onClick={logout} className="w-full flex items-center gap-3 p-3 rounded-full hover:bg-red-50 text-red-600 font-medium transition-colors text-left">
                     <div className="bg-red-100 p-2 rounded-lg text-red-500"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg></div>
                     Logout
                   </button>
@@ -239,7 +306,7 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                <button className="w-full sm:w-auto px-6 py-3 bg-white text-slate-900 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-sm text-sm">
+                <button className="w-full sm:w-auto px-6 py-3 bg-white text-slate-900 font-bold rounded-full hover:bg-slate-100 transition-colors shadow-sm text-sm">
                   Continue Conversation
                 </button>
               </div>

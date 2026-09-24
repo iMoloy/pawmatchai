@@ -9,13 +9,12 @@ import { useAuth } from "@/context/AuthContext";
 const publicLinks = [
   { href: "/", label: "Home" },
   { href: "/explore", label: "Explore Pets" },
-  { href: "/ai-match", label: "✨ AI Matcher" },
+  { href: "/ai-match", label: "AI Matcher" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 const protectedLinks = [
-  { href: "/dashboard", label: "Dashboard" },
   { href: "/pets/add", label: "Add Pet" },
   { href: "/pets/manage", label: "Manage Pets" },
 ];
@@ -28,10 +27,10 @@ export default function Navbar() {
   const isActive = (href: string) => href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   const navLinkClass = (href: string) =>
-    `font-medium text-sm transition-colors ${
+    `transition-colors flex items-center gap-1.5 ${
       isActive(href)
-        ? "text-teal-700 font-bold"
-        : "text-slate-600 hover:text-teal-700"
+        ? "text-teal-600 font-extrabold text-[15px]"
+        : "text-slate-600 font-medium text-sm hover:text-teal-600"
     }`;
 
   const handleLogout = () => {
@@ -54,31 +53,48 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-7">
-            {publicLinks.map(({ href, label }) => (
-              <Link key={href} href={href} className={navLinkClass(href)}>{label}</Link>
-            ))}
-            {user && protectedLinks.map(({ href, label }) => (
-              <Link key={href} href={href} className={navLinkClass(href)}>{label}</Link>
-            ))}
+            {publicLinks.map(({ href, label }) => {
+              const active = isActive(href);
+              return (
+                <Link key={href} href={href} className={navLinkClass(href)}>
+                  {active && <span>🐾</span>}
+                  {label}
+                </Link>
+              );
+            })}
+            {user && protectedLinks.map(({ href, label }) => {
+              const active = isActive(href);
+              return (
+                <Link key={href} href={href} className={navLinkClass(href)}>
+                  {active && <span>🐾</span>}
+                  {label}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Desktop Auth */}
           <div className="hidden md:flex items-center gap-3">
             {user ? (
               <>
-                <span className="text-sm text-slate-500 font-medium hidden lg:block">
-                  Hi, <span className="text-slate-800 font-bold">{user.name?.split(" ")[0]}</span>
-                </span>
+                <Link href="/profile" className="text-sm text-slate-500 font-medium hidden lg:flex items-center gap-2 hover:opacity-80 transition-opacity">
+                  <img 
+                    src={user.avatar || "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=200&auto=format&fit=crop"} 
+                    alt={user.name} 
+                    className="w-8 h-8 rounded-full object-cover border border-slate-200" 
+                  />
+                  <span>Hi, <span className="text-slate-800 font-bold hover:text-teal-700 transition-colors">{user.name?.split(" ")[0]}</span></span>
+                </Link>
                 <button
                   onClick={handleLogout}
-                  className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-full font-medium hover:bg-slate-100 transition-colors"
+                  className="btn-gradient px-4 py-2 text-sm rounded-full font-medium shadow-sm"
                 >
                   Logout
                 </button>
               </>
             ) : (
               <>
-                <Link href="/login" className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-full font-medium hover:bg-slate-100 transition-colors">
+                <Link href="/login" className="px-4 py-2 text-sm bg-linear-to-r from-red-400 to-red-500 text-white border-0 rounded-full font-medium hover:from-red-500 hover:to-red-600 transition-colors shadow-sm">
                   Login
                 </Link>
                 <Link href="/register" className="px-4 py-2 text-sm bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 rounded-full font-semibold hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-sm">
@@ -95,9 +111,9 @@ export default function Navbar() {
             aria-label="Toggle mobile menu"
           >
             {mobileOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              <span className="text-xl">✖️</span>
             ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+              <span className="text-2xl">☰</span>
             )}
           </button>
         </div>
@@ -106,32 +122,53 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-slate-100 bg-white px-4 py-4 space-y-1">
-          {publicLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              onClick={() => setMobileOpen(false)}
-              className={`block px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${isActive(href) ? "bg-teal-50 text-teal-700 font-bold" : "text-slate-700 hover:bg-slate-50"}`}
-            >
-              {label}
-            </Link>
-          ))}
+          {publicLinks.map(({ href, label }) => {
+            const active = isActive(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-2 px-3 py-2.5 rounded-xl transition-colors ${active ? "bg-teal-50 text-teal-600 font-extrabold text-base" : "text-slate-700 font-medium text-sm hover:bg-slate-50"}`}
+              >
+                {active && <span>🐾</span>}
+                {label}
+              </Link>
+            );
+          })}
           {user && (
             <>
-              <div className="border-t border-slate-100 pt-2 mt-2">
-                {protectedLinks.map(({ href, label }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`block px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${isActive(href) ? "bg-teal-50 text-teal-700 font-bold" : "text-slate-700 hover:bg-slate-50"}`}
-                  >
-                    {label}
-                  </Link>
-                ))}
+              <div className="border-t border-slate-100 pt-3 mt-2 mb-1 px-3">
+                <Link href="/profile" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+                  <img 
+                    src={user.avatar || "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=200&auto=format&fit=crop"} 
+                    alt={user.name} 
+                    className="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm" 
+                  />
+                  <div>
+                    <p className="text-sm font-bold text-slate-800">{user.name}</p>
+                    <p className="text-xs text-teal-600 font-medium">View Profile</p>
+                  </div>
+                </Link>
               </div>
               <div className="border-t border-slate-100 pt-2 mt-2">
-                <button onClick={handleLogout} className="block w-full text-left px-3 py-2.5 text-sm text-red-600 font-medium hover:bg-red-50 rounded-xl">
+                {protectedLinks.map(({ href, label }) => {
+                  const active = isActive(href);
+                  return (
+                    <Link
+                      key={href}
+                      href={href}
+                      onClick={() => setMobileOpen(false)}
+                      className={`flex items-center gap-2 px-3 py-2.5 rounded-xl transition-colors ${active ? "bg-teal-50 text-teal-600 font-extrabold text-base" : "text-slate-700 font-medium text-sm hover:bg-slate-50"}`}
+                    >
+                      {active && <span>🐾</span>}
+                      {label}
+                    </Link>
+                  );
+                })}
+              </div>
+              <div className="border-t border-slate-100 pt-2 mt-2">
+                <button onClick={handleLogout} className="btn-gradient block w-full text-center px-3 py-2.5 text-sm font-medium rounded-full">
                   Logout
                 </button>
               </div>
@@ -139,10 +176,10 @@ export default function Navbar() {
           )}
           {!user && (
             <div className="border-t border-slate-100 pt-3 mt-2 flex gap-2">
-              <Link href="/login" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2.5 border border-slate-200 text-sm font-medium text-slate-700 rounded-xl hover:bg-slate-50">
+              <Link href="/login" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2.5 bg-linear-to-r from-red-400 to-red-500 text-white border-0 text-sm font-medium rounded-full hover:from-red-500 hover:to-red-600 shadow-sm">
                 Login
               </Link>
-              <Link href="/register" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2.5 bg-linear-to-r from-teal-600 to-emerald-600 border-0 text-sm font-semibold text-white rounded-xl hover:from-teal-700 hover:to-emerald-700">
+              <Link href="/register" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2.5 bg-linear-to-r from-teal-600 to-emerald-600 border-0 text-sm font-semibold text-white rounded-full hover:from-teal-700 hover:to-emerald-700 shadow-sm">
                 Register
               </Link>
             </div>

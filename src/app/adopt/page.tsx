@@ -120,11 +120,11 @@ export default function AdoptionRequestPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/explore" className="px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-xl hover:from-teal-600 hover:to-emerald-600 transition-colors shadow-sm">
+              <Link href="/explore" className="px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-full hover:from-teal-600 hover:to-emerald-600 transition-colors shadow-sm">
                 Browse More Pets
               </Link>
-              <Link href="/dashboard" className="px-6 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
-                Go to Dashboard
+              <Link href="/profile" className="px-6 py-3 bg-slate-100 text-slate-700 font-bold rounded-full hover:bg-slate-200 transition-colors">
+                Go to Profile
               </Link>
             </div>
           </div>
@@ -166,7 +166,7 @@ export default function AdoptionRequestPage() {
                       value={form.fullName}
                       onChange={handleChange}
                       placeholder="Jane Doe"
-                      className={`w-full px-4 py-3 bg-slate-50 border ${errors.fullName ? 'border-red-300 focus:ring-red-400' : 'border-slate-200 focus:ring-teal-500'} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                      className={`w-full px-4 py-3 bg-slate-50 border ${errors.fullName ? 'border-red-300 focus:ring-red-400' : 'border-slate-200 focus:ring-teal-500'} rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
                     />
                     {errors.fullName && <p className="text-xs text-red-500 font-medium">{errors.fullName}</p>}
                   </div>
@@ -179,7 +179,7 @@ export default function AdoptionRequestPage() {
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="+1 (555) 000-0000"
-                      className={`w-full px-4 py-3 bg-slate-50 border ${errors.phone ? 'border-red-300 focus:ring-red-400' : 'border-slate-200 focus:ring-teal-500'} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                      className={`w-full px-4 py-3 bg-slate-50 border ${errors.phone ? 'border-red-300 focus:ring-red-400' : 'border-slate-200 focus:ring-teal-500'} rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
                     />
                     {errors.phone && <p className="text-xs text-red-500 font-medium">{errors.phone}</p>}
                   </div>
@@ -192,7 +192,7 @@ export default function AdoptionRequestPage() {
                       onChange={handleChange}
                       placeholder="123 Main St, Austin, TX 78701"
                       rows={3}
-                      className={`w-full px-4 py-3 bg-slate-50 border ${errors.address ? 'border-red-300 focus:ring-red-400' : 'border-slate-200 focus:ring-teal-500'} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm resize-none`}
+                      className={`w-full px-4 py-3 bg-slate-50 border ${errors.address ? 'border-red-300 focus:ring-red-400' : 'border-slate-200 focus:ring-teal-500'} rounded-2xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm resize-none`}
                     />
                     {errors.address && <p className="text-xs text-red-500 font-medium">{errors.address}</p>}
                   </div>
@@ -244,7 +244,7 @@ export default function AdoptionRequestPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-2xl hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-base"
+                className="w-full py-4 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-full hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-base"
               >
                 {isSubmitting ? (
                   <>

@@ -236,7 +236,7 @@ export default function AddPetPage() {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="e.g. Luna"
-                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.name ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.name ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
                       />
                       {errors.name && (
                         <p className="text-xs text-red-500 font-medium mt-1">
@@ -253,7 +253,7 @@ export default function AddPetPage() {
                         name="species"
                         value={formData.species}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
                       >
                         <option value="Dog">Dog</option>
                         <option value="Cat">Cat</option>
@@ -272,7 +272,7 @@ export default function AddPetPage() {
                         value={formData.breed}
                         onChange={handleChange}
                         placeholder="e.g. Golden Retriever"
-                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.breed ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.breed ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
                       />
                       {errors.breed && (
                         <p className="text-xs text-red-500 font-medium mt-1">
@@ -291,7 +291,7 @@ export default function AddPetPage() {
                         value={formData.age}
                         onChange={handleChange}
                         placeholder="e.g. 2 years, 3 months"
-                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.age ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.age ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
                       />
                       {errors.age && (
                         <p className="text-xs text-red-500 font-medium mt-1">
@@ -308,7 +308,7 @@ export default function AddPetPage() {
                         name="size"
                         value={formData.size}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
                       >
                         <option value="Small">Small (0-15 lbs)</option>
                         <option value="Medium">Medium (16-40 lbs)</option>
@@ -329,7 +329,7 @@ export default function AddPetPage() {
                         value={formData.weight}
                         onChange={handleChange}
                         placeholder="e.g. 45 lbs"
-                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.weight ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.weight ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
                       />
                       {errors.weight && (
                         <p className="text-xs text-red-500 font-medium mt-1">
@@ -346,7 +346,7 @@ export default function AddPetPage() {
                         name="gender"
                         value={formData.gender}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
                       >
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -372,7 +372,7 @@ export default function AddPetPage() {
                         value={formData.location}
                         onChange={handleChange}
                         placeholder="e.g. Austin, TX"
-                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.location ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.location ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
                       />
                       {errors.location && (
                         <p className="text-xs text-red-500 font-medium mt-1">
@@ -391,7 +391,7 @@ export default function AddPetPage() {
                         value={formData.fee}
                         onChange={handleChange}
                         placeholder="e.g. 150"
-                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.fee ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.fee ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
                       />
                       {errors.fee && (
                         <p className="text-xs text-red-500 font-medium mt-1">
@@ -414,7 +414,7 @@ export default function AddPetPage() {
                           type="button"
                           onClick={handleAIAnalyze}
                           disabled={isAnalyzing}
-                          className="px-4 py-2 bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-600 hover:to-emerald-600 text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-50 shrink-0"
+                          className="px-4 py-2 bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-600 hover:to-emerald-600 text-white text-xs font-bold rounded-full transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-50 shrink-0"
                         >
                           {isAnalyzing ? (
                             <>
@@ -437,7 +437,7 @@ export default function AddPetPage() {
                         value={formData.imageUrl}
                         onChange={handleChange}
                         placeholder="https://example.com/pet-image.jpg"
-                        className="w-full px-4 py-3 bg-white border border-teal-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all text-sm shadow-inner"
+                        className="w-full px-4 py-3 bg-white border border-teal-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all text-sm shadow-inner"
                       />
                       <p className="text-xs text-slate-400">
                         Leave blank to use a default pet image.
@@ -454,7 +454,7 @@ export default function AddPetPage() {
                         value={formData.shortDescription}
                         onChange={handleChange}
                         placeholder="A brief, catchy intro for this pet..."
-                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.shortDescription ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
+                        className={`w-full px-4 py-3 bg-slate-50 border ${errors.shortDescription ? "border-red-300 focus:ring-red-500" : "border-slate-200 focus:ring-teal-500"} rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:bg-white transition-all text-sm`}
                       />
                       <div className="flex justify-between items-center mt-1">
                         {errors.shortDescription ? (
@@ -482,7 +482,7 @@ export default function AddPetPage() {
                         onChange={handleChange}
                         placeholder="Tell us everything about this pet's personality, history, and needs..."
                         rows={4}
-                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm resize-none"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm resize-none"
                       ></textarea>
                     </div>
                   </div>
@@ -492,14 +492,14 @@ export default function AddPetPage() {
                   <button
                     type="button"
                     onClick={() => router.back()}
-                    className="px-6 py-3.5 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors shadow-sm"
+                    className="px-6 py-3.5 bg-slate-100 text-slate-700 font-bold rounded-full hover:bg-slate-200 transition-colors shadow-sm"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-8 py-3.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center min-w-[160px]"
+                    className="px-8 py-3.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-full hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center min-w-[160px]"
                   >
                     {isSubmitting ? (
                       <>

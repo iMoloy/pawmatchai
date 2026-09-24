@@ -47,15 +47,7 @@ function LoginForm() {
     }
   };
 
-  const handleDemoLogin = () => {
-    setEmail("demo@pawmatch.ai");
-    setPassword("pawmatch2026");
-    setTimeout(() => {
-      document.getElementById("login-form")?.dispatchEvent(
-        new Event("submit", { cancelable: true, bubbles: true })
-      );
-    }, 100);
-  };
+
 
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -105,7 +97,7 @@ function LoginForm() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
                   placeholder="you@example.com"
                 />
               </div>
@@ -119,7 +111,7 @@ function LoginForm() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
                   placeholder="••••••••"
                 />
               </div>
@@ -127,7 +119,7 @@ function LoginForm() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+                className="w-full py-3.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-full hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-2"
               >
                 {isLoading ? "Signing in..." : "Sign In"}
               </button>
@@ -141,7 +133,7 @@ function LoginForm() {
               <button
                 type="button"
                 onClick={() => handleGoogleLogin()}
-                className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors text-sm font-semibold text-slate-700 shadow-sm"
+                className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-linear-to-r from-red-400 to-red-500 border-0 rounded-full hover:from-red-500 hover:to-red-600 transition-colors text-sm font-semibold text-white shadow-sm"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -152,16 +144,7 @@ function LoginForm() {
                 Continue with Google
               </button>
 
-              <button
-                type="button"
-                onClick={handleDemoLogin}
-                className="w-full py-3 px-4 bg-slate-800 text-white rounded-xl hover:bg-slate-900 transition-colors text-sm font-semibold shadow-sm flex items-center justify-center gap-2"
-              >
-                <svg className="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                Try Demo Account
-              </button>
+
             </div>
           </div>
 

@@ -1,6 +1,74 @@
 @import "tailwindcss";
 
-:root {
+@theme {
+  --color-accent-50: #fff1ef;
+  --color-accent-100: #ffe0db;
+  --color-accent-200: #ffc6bd;
+  --color-accent-300: #ffa294;
+  --color-accent-400: #ff6a52;
+  --color-accent-500: #fc482e;
+  --color-accent-600: #eb2d12;
+  --color-accent-700: #c41e06;
+  --color-accent-800: #a11b08;
+  --color-accent-900: #851c0e;
+  --color-accent-950: #480a02;
+
+  /* Map warm colors to Secondary #ff6a52 */
+  --color-amber-50: var(--color-accent-50);
+  --color-amber-100: var(--color-accent-100);
+  --color-amber-200: var(--color-accent-200);
+  --color-amber-300: var(--color-accent-300);
+  --color-amber-400: var(--color-accent-400);
+  --color-amber-500: var(--color-accent-500);
+  --color-amber-600: var(--color-accent-600);
+  --color-amber-700: var(--color-accent-700);
+
+  --color-red-50: var(--color-accent-50);
+  --color-red-100: var(--color-accent-100);
+  --color-red-200: var(--color-accent-200);
+  --color-red-300: var(--color-accent-300);
+  --color-red-400: var(--color-accent-400);
+  --color-red-500: var(--color-accent-500);
+  --color-red-600: var(--color-accent-600);
+  --color-red-700: var(--color-accent-700);
+  --color-red-800: var(--color-accent-800);
+
+  --color-pink-50: var(--color-accent-50);
+  --color-pink-100: var(--color-accent-100);
+  --color-pink-200: var(--color-accent-200);
+  --color-pink-300: var(--color-accent-300);
+  --color-pink-400: var(--color-accent-400);
+  --color-pink-500: var(--color-accent-500);
+  --color-pink-600: var(--color-accent-600);
+  --color-pink-700: var(--color-accent-700);
+
+  --color-orange-50: var(--color-accent-50);
+  --color-orange-100: var(--color-accent-100);
+  --color-orange-400: var(--color-accent-400);
+  --color-orange-500: var(--color-accent-500);
+  
+  --color-coral-400: var(--color-accent-400);
+
+  /* Map cool/other colors to Primary (Teal) */
+  --color-blue-50: var(--color-teal-50);
+  --color-blue-100: var(--color-teal-100);
+  --color-blue-200: var(--color-teal-200);
+  --color-blue-300: var(--color-teal-300);
+  --color-blue-400: var(--color-teal-400);
+  --color-blue-500: var(--color-teal-500);
+  --color-blue-600: var(--color-teal-600);
+  --color-blue-700: var(--color-teal-700);
+
+  --color-indigo-50: var(--color-teal-50);
+  --color-indigo-100: var(--color-teal-100);
+  --color-indigo-400: var(--color-teal-400);
+  --color-indigo-500: var(--color-teal-500);
+
+  --color-green-50: var(--color-emerald-50);
+  --color-green-100: var(--color-emerald-100);
+  --color-green-400: var(--color-emerald-400);
+  --color-green-700: var(--color-emerald-700);
+}:root {
   --background: #ffffff;
   --foreground: #171717;
   /* Primary colors */
@@ -24,4 +92,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .btn-gradient {
+    @apply bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 rounded-full transition-all hover:from-teal-700 hover:to-emerald-700;
+  }
 }

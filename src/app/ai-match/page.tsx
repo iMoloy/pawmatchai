@@ -394,7 +394,7 @@ export default function AIMatchPage() {
               {currentStep === QUIZ_STEPS.length - 1 && answers[step.id] ? (
                 <button
                   onClick={handleSubmitQuiz}
-                  className="px-8 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors shadow-lg animate-in fade-in zoom-in duration-300 flex items-center gap-2"
+                  className="px-8 py-3 bg-slate-900 text-white font-bold rounded-full hover:bg-slate-800 transition-colors shadow-lg animate-in fade-in zoom-in duration-300 flex items-center gap-2"
                 >
                   Find My Match <span>✨</span>
                 </button>

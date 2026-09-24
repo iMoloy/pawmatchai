@@ -200,7 +200,7 @@ export default function ShelterMapLocator({ petLocation }: { petLocation?: strin
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-5 py-2.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold rounded-xl text-xs transition-all shadow-md text-center"
+              className="w-full sm:w-auto px-5 py-2.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold rounded-full text-xs transition-all shadow-md text-center"
             >
               Open Directions in Google Maps 🗺️
             </a>

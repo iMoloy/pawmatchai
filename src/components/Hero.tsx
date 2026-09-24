@@ -28,19 +28,7 @@ export default function Hero() {
                 className="w-full px-6 py-4 pr-12 rounded-full border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white text-slate-900"
               />
               <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white bg-linear-to-r from-teal-600 to-emerald-600 border-0 rounded-full hover:from-teal-700 hover:to-emerald-700 transition-colors">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
+                <span className="text-xl px-1">🔍</span>
               </button>
             </div>
 
@@ -54,7 +42,7 @@ export default function Hero() {
               </Link>
               <Link
                 href="/explore"
-                className="px-8 py-4 bg-white text-teal-700 border border-teal-700 rounded-full font-semibold text-center hover:bg-teal-50 transition-colors"
+                className="px-8 py-4 bg-linear-to-r from-red-400 to-red-500 text-white border-0 rounded-full font-semibold text-center hover:from-red-500 hover:to-red-600 transition-colors shadow-sm"
               >
                 Explore Pets
               </Link>

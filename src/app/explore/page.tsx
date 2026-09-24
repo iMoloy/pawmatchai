@@ -154,7 +154,7 @@ export default function ExplorePage() {
                   setPage(1); // Reset page to 1 on search
                 }}
                 placeholder="Search by name, breed, location..."
-                className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent focus:bg-white transition-all duration-200"
+                className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent focus:bg-white transition-all duration-200"
               />
             </div>
 
@@ -175,7 +175,7 @@ export default function ExplorePage() {
                     setSpecies(e.target.value);
                     setPage(1);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="">All Species</option>
                   <option value="dog">Dogs</option>
@@ -198,7 +198,7 @@ export default function ExplorePage() {
                     setAgeRange(e.target.value);
                     setPage(1);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="">All Ages</option>
                   <option value="puppy">Puppy / Kitten (&lt;1 yr)</option>
@@ -223,7 +223,7 @@ export default function ExplorePage() {
                     setSize(e.target.value);
                     setPage(1);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="">All Sizes</option>
                   <option value="small">Small (under 15 lbs)</option>
@@ -247,7 +247,7 @@ export default function ExplorePage() {
                     setLocation(e.target.value);
                     setPage(1);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="">Anywhere</option>
                   <option value="nearby">Near Me (Same State)</option>
@@ -269,7 +269,7 @@ export default function ExplorePage() {
                     setSort(e.target.value);
                     setPage(1);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all duration-200"
                 >
                   <option value="newest">Newest Listed</option>
                   <option value="closest">Closest Location</option>
@@ -392,7 +392,7 @@ export default function ExplorePage() {
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="px-6 py-2 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-semibold rounded-xl text-sm hover:from-teal-700 hover:to-emerald-700 transition-colors"
+                  className="px-6 py-2 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-semibold rounded-full text-sm hover:from-teal-700 hover:to-emerald-700 transition-colors"
                 >
                   Reset Filters
                 </button>

@@ -123,7 +123,7 @@ function RegisterForm() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
                   placeholder="Jane Doe"
                 />
               </div>
@@ -136,7 +136,7 @@ function RegisterForm() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
                   placeholder="you@example.com"
                 />
               </div>
@@ -150,7 +150,7 @@ function RegisterForm() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
                     placeholder="••••••••"
                   />
                 </div>
@@ -163,7 +163,7 @@ function RegisterForm() {
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-sm"
                     placeholder="••••••••"
                   />
                 </div>
@@ -172,7 +172,7 @@ function RegisterForm() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                className="w-full py-3.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-full hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed mt-4"
               >
                 {isLoading ? "Creating Account..." : "Create Account"}
               </button>
@@ -187,7 +187,7 @@ function RegisterForm() {
             <button
               type="button"
               onClick={() => handleGoogleLogin()}
-              className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors text-sm font-semibold text-slate-700 shadow-sm"
+              className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-linear-to-r from-red-400 to-red-500 border-0 rounded-full hover:from-red-500 hover:to-red-600 transition-colors text-sm font-semibold text-white shadow-sm"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path

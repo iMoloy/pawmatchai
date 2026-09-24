@@ -144,7 +144,7 @@ export default function PetComparator({
           <span>Comparing {selectedPets.length} of 3 maximum pets</span>
           <button
             onClick={onClose}
-            className="px-5 py-2 bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-600 hover:to-emerald-600 text-white font-medium rounded-xl transition"
+            className="px-5 py-2 bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-600 hover:to-emerald-600 text-white font-medium rounded-full transition"
           >
             Close Comparator
           </button>

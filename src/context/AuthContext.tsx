@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import axios from "axios";
@@ -21,21 +21,24 @@ interface AuthContextType {
   register: (name: string, email: string, password: string) => Promise<{ success: boolean; message?: string }>;
   loginWithGoogle: (accessToken: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
+  updateProfile: (data: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(() => {
-    if (typeof window === "undefined") return null;
+  const [user, setUser] = useState<User | null>(null);
+  
+  useEffect(() => {
     try {
       const storedUser = localStorage.getItem("pawmatch_user");
-      return storedUser ? JSON.parse(storedUser) : null;
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
     } catch (e) {
       console.error("Failed to parse stored user", e);
-      return null;
     }
-  });
+  }, []);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -104,6 +107,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const updateProfile = (data: Partial<User>) => {
+    if (user) {
+      const updatedUser = { ...user, ...data };
+      setUser(updatedUser);
+      localStorage.setItem("pawmatch_user", JSON.stringify(updatedUser));
+    }
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem("pawmatch_user");
@@ -115,7 +126,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}
     >
       <AuthContext.Provider
-        value={{ user, isLoading, login, register, loginWithGoogle, logout }}
+        value={{ user, isLoading, login, register, loginWithGoogle, logout, updateProfile }}
       >
         {children}
       </AuthContext.Provider>

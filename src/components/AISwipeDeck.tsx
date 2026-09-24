@@ -213,7 +213,7 @@ export default function AISwipeDeck({ pets }: AISwipeDeckProps) {
 
           <Link
             href={`/pets/${currentPet.id}`}
-            className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold rounded-xl transition-all"
+            className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold rounded-full transition-all"
           >
             View Profile
           </Link>

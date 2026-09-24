@@ -129,13 +129,13 @@ export default function ManagePetsPage() {
               <div className="mt-8 flex gap-3">
                 <button
                   onClick={() => setPetToDelete(null)}
-                  className="flex-1 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors"
+                  className="flex-1 py-3 bg-slate-100 text-slate-700 font-bold rounded-full hover:bg-slate-200 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleDeleteConfirm}
-                  className="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition-colors shadow-sm"
+                  className="flex-1 py-3 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition-colors shadow-sm"
                 >
                   Delete
                 </button>
@@ -156,7 +156,7 @@ export default function ManagePetsPage() {
             </div>
             <Link
               href="/pets/add"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-xl hover:from-teal-600 hover:to-emerald-600 transition-colors shadow-sm shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 font-bold rounded-full hover:from-teal-600 hover:to-emerald-600 transition-colors shadow-sm shrink-0"
             >
               <svg
                 className="w-5 h-5"
@@ -205,7 +205,7 @@ export default function ManagePetsPage() {
                 </p>
                 <Link
                   href="/pets/add"
-                  className="px-8 py-3.5 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-900 transition-colors shadow-sm"
+                  className="px-8 py-3.5 bg-slate-800 text-white font-bold rounded-full hover:bg-slate-900 transition-colors shadow-sm"
                 >
                   Add Your First Pet
                 </Link>
@@ -329,13 +329,13 @@ export default function ManagePetsPage() {
                       <div className="flex items-center gap-2 pt-3 border-t border-slate-100">
                         <Link
                           href={`/pets/${pet.id}`}
-                          className="flex-1 py-2 bg-slate-50 text-slate-700 text-center text-sm font-bold rounded-lg hover:bg-slate-100"
+                          className="flex-1 py-2 bg-slate-50 text-slate-700 text-center text-sm font-bold rounded-full hover:bg-slate-100"
                         >
                           View Details
                         </Link>
                         <button
                           onClick={() => setPetToDelete(pet)}
-                          className="px-4 py-2 bg-red-50 text-red-600 text-sm font-bold rounded-lg hover:bg-red-100"
+                          className="px-4 py-2 bg-red-50 text-red-600 text-sm font-bold rounded-full hover:bg-red-100"
                         >
                           Delete
                         </button>

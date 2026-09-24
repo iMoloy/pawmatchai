@@ -64,7 +64,7 @@ export default function AboutPage() {
                 <p>PawMatch AI was created to bridge that gap. By combining a modern browsing experience with AI-powered lifestyle matching, we help people find pets that truly fit their lives — not just ones that look cute in a photo.</p>
                 <p>Our AI assistant <strong>&quot;Paws&quot;</strong> is available 24/7 to answer questions about adoption, help you understand a pet&apos;s personality, and guide you through the entire process.</p>
               </div>
-              <Link href="/ai-match" className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-sm">
+              <Link href="/ai-match" className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-full hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-sm">
                 Try AI Matching
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </Link>
@@ -135,10 +135,10 @@ export default function AboutPage() {
             <h2 className="text-4xl font-black mb-4">Ready to find your perfect pet?</h2>
             <p className="text-teal-100 mb-8 text-lg">Take our 2-minute lifestyle quiz and let our AI find your best matches.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/ai-match" className="px-8 py-4 bg-white text-teal-800 font-bold rounded-2xl hover:bg-slate-50 transition-colors shadow-lg">
+              <Link href="/ai-match" className="px-8 py-4 bg-white text-teal-800 font-bold rounded-full hover:bg-slate-50 transition-colors shadow-lg">
                 ✨ Start AI Matching
               </Link>
-              <Link href="/explore" className="px-8 py-4 bg-teal-500/30 text-white font-bold rounded-2xl hover:bg-teal-500/40 border border-white/20 transition-colors">
+              <Link href="/explore" className="px-8 py-4 bg-teal-500/30 text-white font-bold rounded-full hover:bg-teal-500/40 border border-white/20 transition-colors">
                 Browse All Pets
               </Link>
             </div>

@@ -95,7 +95,7 @@ export default function FeaturedPets() {
         <div className="text-center mt-12">
           <Link
             href="/explore"
-            className="inline-flex items-center px-8 py-3 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-xl hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-sm"
+            className="inline-flex items-center px-8 py-3 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-full hover:from-teal-700 hover:to-emerald-700 transition-colors shadow-sm"
           >
             View All Pets →
           </Link>

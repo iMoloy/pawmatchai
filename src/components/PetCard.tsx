@@ -35,19 +35,7 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }: PetCardPro
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <svg
-              className="w-12 h-12 text-slate-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6.75 6.75h.01M12 6.75h.01M17.25 6.75h.01"
-              />
-            </svg>
+            <span className="text-4xl">📷</span>
           </div>
         )}
         
@@ -84,17 +72,12 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }: PetCardPro
           {/* Meta row: Age & Location */}
           <div className="flex items-center gap-2 text-sm text-slate-500 mb-4">
             <span className="flex items-center gap-1">
-              <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <span className="text-xs">🎂</span>
               {typeof pet.age === 'number' ? `${pet.age} ${pet.age === 1 ? 'year' : 'years'}` : pet.age}
             </span>
             <span>•</span>
             <span className="flex items-center gap-1 truncate">
-              <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
+              <span className="text-xs">📍</span>
               {pet.location}
             </span>
           </div>
@@ -116,14 +99,14 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }: PetCardPro
                   className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-colors shadow-sm"
                   aria-label="Not a good match"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" /></svg>
+                  <span className="text-base">👎</span>
                 </button>
                 <button 
                   onClick={(e) => { e.preventDefault(); onLike && onLike(pet.id); }}
                   className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-teal-600 hover:border-teal-200 hover:bg-teal-50 transition-colors shadow-sm"
                   aria-label="Good match"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" /></svg>
+                  <span className="text-base">👍</span>
                 </button>
               </div>
             )}
@@ -138,7 +121,7 @@ export default function PetCard({ pet, aiReason, onLike, onDislike }: PetCardPro
           </div>
           <Link
             href={`/pets/${pet.id}`}
-            className="px-4 py-2.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-semibold text-sm rounded-xl hover:from-teal-700 hover:to-emerald-700 hover:shadow-md transition-all duration-200"
+            className="px-4 py-2.5 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-semibold text-sm rounded-full hover:from-teal-700 hover:to-emerald-700 hover:shadow-md transition-all duration-200"
           >
             View Details
           </Link>

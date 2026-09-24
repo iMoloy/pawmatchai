@@ -60,9 +60,7 @@ export default function AIChatWidget() {
         aria-label="Open Paws AI Chat"
       >
         {isOpen ? (
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <span className="text-xl">✖️</span>
         ) : (
           <span className="text-2xl">🐾</span>
         )}
@@ -90,9 +88,7 @@ export default function AIChatWidget() {
             </div>
           </div>
           <button onClick={closeChat} className="ml-auto text-white/70 hover:text-white transition-colors">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <span className="text-sm">✖️</span>
           </button>
         </div>
 
@@ -155,16 +151,14 @@ export default function AIChatWidget() {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask Paws anything..."
             disabled={isStreaming}
-            className="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all disabled:opacity-60"
+            className="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all disabled:opacity-60"
           />
           <button
             type="submit"
             disabled={isStreaming || !input.trim()}
-            className="w-10 h-10 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 rounded-xl flex items-center justify-center hover:from-teal-600 hover:to-emerald-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+            className="w-10 h-10 bg-linear-to-r from-teal-500 to-emerald-500 text-white border-0 rounded-full flex items-center justify-center hover:from-teal-600 hover:to-emerald-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-            </svg>
+            <span className="text-xl">🚀</span>
           </button>
         </form>
       </div>

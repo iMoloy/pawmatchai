@@ -18,8 +18,8 @@ export default function Footer() {
               Connecting loving families with their perfect pets through intelligent AI matching technology.
             </p>
             <form className="flex gap-2 max-w-sm">
-              <input type="email" placeholder="Subscribe to newsletter" className="bg-slate-800 border border-slate-700 text-sm text-white px-4 py-2.5 rounded-xl flex-1 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder:text-slate-500" />
-              <button type="submit" className="bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-400 hover:to-emerald-400 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors">
+              <input type="email" placeholder="Subscribe to newsletter" className="bg-slate-800 border border-slate-700 text-sm text-white px-4 py-2.5 rounded-full flex-1 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder:text-slate-500" />
+              <button type="submit" className="bg-linear-to-r from-teal-500 to-emerald-500 border-0 hover:from-teal-400 hover:to-emerald-400 text-white px-4 py-2.5 rounded-full text-sm font-semibold transition-colors">
                 Subscribe
               </button>
             </form>
@@ -52,20 +52,15 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
             <ul className="space-y-3 text-slate-300">
               <li className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+                <span className="mr-2">📧</span>
                 hello@pawmatchai.com
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.232a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.232 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
+                <span className="mr-2">📞</span>
                 (555) 123-4567
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                </svg>
+                <span className="mr-2">📍</span>
                 San Francisco, CA
               </li>
             </ul>

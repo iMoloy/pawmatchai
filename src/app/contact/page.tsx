@@ -75,7 +75,7 @@ export default function ContactPage() {
   };
 
   const inputClass = (field: keyof FormState) =>
-    `w-full px-4 py-3 bg-slate-50 border ${errors[field] ? "border-red-300 focus:ring-red-400" : "border-slate-200 focus:ring-teal-500"} rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:bg-white transition-all`;
+    `w-full px-4 py-3 bg-slate-50 border ${errors[field] ? "border-red-300 focus:ring-red-400" : "border-slate-200 focus:ring-teal-500"} rounded-full text-slate-800 text-sm focus:outline-none focus:ring-2 focus:bg-white transition-all`;
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
@@ -192,7 +192,7 @@ export default function ContactPage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full py-4 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-2xl hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 font-bold rounded-full hover:from-teal-700 hover:to-emerald-700 active:scale-[0.98] transition-all shadow-md disabled:opacity-70 flex items-center justify-center gap-2"
                       >
                         {isSubmitting ? (
                           <>
