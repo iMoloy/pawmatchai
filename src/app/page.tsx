@@ -10,20 +10,20 @@ import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 
 export default function Home() {
-  return (
-    <>
-      <Navbar />
-      <main className="flex-1">
-        <Hero />
-        <HowItWorks />
-        <FeaturedPets />
-        <WhyAIMatching />
-        <Categories />
-        <Testimonials />
-        <AdoptionStats />
-        <Newsletter />
-      </main>
-      <Footer />
-    </>
-  );
+ return (
+ <>
+ <Navbar />
+ <main className="flex-1">
+ <Hero />
+ <HowItWorks />
+ <FeaturedPets />
+ <WhyAIMatching />
+ <Categories />
+ <Testimonials />
+ <AdoptionStats />
+ <Newsletter />
+ </main>
+ <Footer />
+ </>
+ );
 }

@@ -6,22 +6,22 @@ import { AuthProvider } from "@/context/AuthContext";
 import { ChatProvider } from "@/context/ChatContext";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        retry: 1,
-      },
-    },
-  }));
+ const [queryClient] = useState(() => new QueryClient({
+ defaultOptions: {
+ queries: {
+ refetchOnWindowFocus: false,
+ retry: 1,
+ },
+ },
+ }));
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <ChatProvider>
-          {children}
-        </ChatProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-  );
+ return (
+ <QueryClientProvider client={queryClient}>
+ <AuthProvider>
+ <ChatProvider>
+ {children}
+ </ChatProvider>
+ </AuthProvider>
+ </QueryClientProvider>
+ );
 }

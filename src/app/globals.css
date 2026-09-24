@@ -95,6 +95,20 @@ body {
 }
 
 @layer components {
+  .text-fluid-heading {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    @apply font-black tracking-tight text-slate-800;
+  }
+  .text-fluid-subheading {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.5;
+    @apply font-medium;
+  }
+  .text-fluid-body {
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    line-height: 1.6;
+  }
   .btn-gradient {
     @apply bg-linear-to-r from-teal-600 to-emerald-600 text-white border-0 rounded-full transition-all hover:from-teal-700 hover:to-emerald-700;
   }
